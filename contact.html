@@ -24,8 +24,7 @@
         position: relative;
         display: inline-block;
         overflow: hidden;
-        color: #FFFFFF; /* Set initial text color */
-        background-image: linear-gradient(to right, #FFFFFF, #FFFFFF); /* Initial gradient with the text color */
+        background-image: linear-gradient(to right, #444343, #383737); /* Initial gradient with the text color */
         background-size: 100% 100%; /* Initially cover the text with the gradient */
         background-repeat: no-repeat;
         transition: background-size 0.2s, color 0.2s, transform 0.2s;
@@ -151,7 +150,7 @@
 <header class="bg-black text-white py-4">
     <div class="flex">
         <div>
-            <h1 class="text-5xl ml-8 font-staatliches">1()N1</h1>
+            <h1 class="text-5xl ml-8 font-staatliches text-white">1()N1</h1>
         </div>
         <div class="flex space-x-5 mr-[20px] justify-end w-full">
             <!-- Left-centered links -->
@@ -171,22 +170,22 @@
 </div>
 <div class="search-container">
     <form action="#" method="post" onsubmit="return false;">
-        <input type="text" id="search" class="search-input font-staatliches text-center text-white" placeholder="Search for usernames" required>
+        <input type="text" id="search" class="search-input font-staatliches text-center text-black" placeholder="Search for usernames" required>
         <button class="search-button" type="submit">Search</button>
     </form>
 </div>
 
 <div class="contact-container">
-    <div class="contact-field bg-white">Inaam
+    <div class="contact-field bg-white font-staatliches">Inaam
         <button class="edit-button" onclick="window.location.href='edit_contact.html'">Edit</button>
     </div>
-    <div class="contact-field bg-white">Noel
+    <div class="contact-field bg-white font-staatliches">Noel
         <button class="edit-button" onclick="window.location.href='edit_contact.html'">Edit</button>
     </div>
-    <div class="contact-field bg-white">Hoa
+    <div class="contact-field bg-white font-staatliches">Hoa
         <button class="edit-button" onclick="window.location.href='edit_contact.html'">Edit</button>
     </div>
-    <div class="contact-field bg-white">Nipun
+    <div class="contact-field bg-white font-staatliches">Nipun
         <button class="edit-button" onclick="window.location.href='edit_contact.html'">Edit</button>
     </div>
 </div>
