@@ -34,9 +34,11 @@
             height: 80px;
             background-color: gray;
         }
-
-        .text-6xl {
-            margin-left: 400px;
+        .custom-list {
+            list-style-type: disc; /* Use disc as bullet point */
+            margin-left: 20px; /* Adjust margin for indentation */
+            padding-left: 10px; /* Add padding for bullet point spacing */
+            color: white;
         }
 
         #contact {
@@ -50,7 +52,7 @@
         }
 
         #calendar {
-            margin-left: 440px;
+            margin-left: 300px;
         }
 
         #weeks {
@@ -66,7 +68,8 @@
         #days {
             li {
                 align-items: flex-end;
-                justify-content: flex-end;
+                /* justify-content: flex-end;  */
+                text-align: center;
             }
 
             li:hover{
@@ -76,7 +79,6 @@
         }
 
         .login-button {
-    /* Rectangle 18 */
             position: flex;
             width: 183px;
             height: 48px;
@@ -88,31 +90,14 @@
             font-weight: 400;
             font-size: 30px;
             line-height: 50px;
-            font-style: normal;
-            align-items: flex-end;
-            justify-content: flex-end;
-            align-self: center;
-            text-align: center;
-            margin-top: 5px;
+            margin-top: 10px;
         }
 
-        #auto-button {
-            position: relative;
-            text-align: center;
-            justify-content: right;
-         
-        }
-        .button-form {
-            margin-top: 10px;
-            margin-left: 400px;
-            text-align: center;
-            align-self: center;
-        }
         
     </style>
 </head>
 <body class="bg-black">
-    <header class="bg-black text-white py-4">
+    <header class="bg-black mt-2 text-white py-4">
         <div class="flex">
             <div>
                 <h1 class="text-5xl ml-8 font-staatliches">1()N1</h1>
@@ -128,78 +113,77 @@
             </div>
         </div>
     </header>
-
-    <div id="contact" class="text-white font-staatliches mt-10 ml-4 absolute">
-        <h1 class="text-5xl text-center">PEOPLE</h1>
-        <br>
-        <ul class="text-2xl bg-black text-left list-disc">
-            <li class="ml-5">Inaam</li>
-            <li class="ml-5">Nipun</li>
-            <li class="ml-5">Noel</li>
-            <li class="ml-5">Hoa</li>
-        </ul>
-    </div>
-
-    <div class="font-staatliches font-normal text-6xl leading-8 text-center text-white">
+    <div class="font-staatliches text-6xl leading-8 text-white text-center">
         My Calendar 
     </div>
-    
-    <div id="calendar" class="bg-black p-6 rounded-md shadow-md mt-10">
-        <h2 class="text-2xl text-white mb-4 font-staatliches">February 2024</h2>
+    <div class="flex">
+        <div id="contact" class="text-white font-staatliches mt-11 ml-4 absolute">
+            <h1 class="text-5xl text-center">PEOPLE</h1>
+            <ul class="custom-list text-2xl mt-3">
+                <li class="ml-5">Inaam</li>
+                <li class="ml-5">Nipun</li>
+                <li class="ml-5">Noel</li>
+                <li class="ml-5">Hoa</li>
+                <li class="ml-5">Hoa</li>
 
-        <ul id="weeks" class="grid min-w-16 text-1.5xl grid-cols-7 font-staatliches text-center text-white mb-3">
+            </ul>
+            <button class="login-button">MORE DETAILS</button>
+
+        </div>
         
-            <li>Sun</li>
-            <li>Mon</li>
-            <li>Tue</li>
-            <li>Wed</li>
-            <li>Thu</li>
-            <li>Fri</li>
-            <li>Sat</li>
-        </ul>
-            
-        <ul id="days" class="grid min-w-16 text-1.5xl grid-cols-7 font-staatliches text-center text-white">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-            <li>7</li>
-            <li>8</li>
-            <li>9</li>
-            <li>10</li>
-            <li>11</li>
-            <li>12</li>
-            <li>13</li>
-            <li>14</li>
-            <li>15</li>
-            <li>16</li>
-            <li>17</li>
-            <li>18</li>
-            <li>19</li>
-            <li>20</li>
-            <li>21</li>
-            <li>22</li>
-            <li>23</li>
-            <li>24</li>
-            <li>25</li>
-            <li>26</li>
-            <li>27</li>
-            <li>28</li>
-            <li>29</li>
-            <li></li>
-            <li></li>
-        </ul>
-    </div>
+        <div id="calendar" class="bg-black rounded-md shadow-md mt-10">
+            <h2 class="text-2xl text-white mb-4 font-staatliches">February 2024</h2>
 
-    <div class="button-form">
-        <button class="login-button">MORE DETAILS</button>
-        <button id="auto-button" class="login-button">AUTO-GENERATE</button>
+            <ul id="weeks" class="grid min-w-16 text-1.5xl grid-cols-7 font-staatliches text-center text-white mb-3">
+            
+                <li>Sun</li>
+                <li>Mon</li>
+                <li>Tue</li>
+                <li>Wed</li>
+                <li>Thu</li>
+                <li>Fri</li>
+                <li>Sat</li>
+            </ul>
+                
+            <ul id="days" class="grid min-w-16 text-1.5xl grid-cols-7 font-staatliches text-white">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+                <li>10</li>
+                <li>11</li>
+                <li>12</li>
+                <li>13</li>
+                <li>14</li>
+                <li>15</li>
+                <li>16</li>
+                <li>17</li>
+                <li>18</li>
+                <li>19</li>
+                <li>20</li>
+                <li>21</li>
+                <li>22</li>
+                <li>23</li>
+                <li>24</li>
+                <li>25</li>
+                <li>26</li>
+                <li>27</li>
+                <li>28</li>
+                <li>29</li>
+                <li></li>
+                <li></li>
+            </ul>
+            <button class="login-button justify-end ">AUTO-GENERATE</button>
+        </div>
     </div>
     
 </body>
