@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Staatliches">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <title>Calendar</title>
+
+    <style>
+        .font-staatliches {
+            font-family: 'Staatliches', cursive;
+        }
+        h2.font-staatliches {
+            font-family: 'Staatliches', cursive;
+            /* color: #F44336; */
+        }
+        h1.font-staatliches, a.font-staatliches {
+            font-family: 'Staatliches', cursive;
+            animation-duration: 200ms;
+            
+        }
+        a.font-staatliches:hover{
+            color: #F44336;
+        }
+
+        li {
+            display: grid;
+            border: solid;
+            width: 150px;
+            height: 80px;
+            background-color: gray;
+        }
+
+        .text-6xl {
+            margin-left: 400px;
+        }
+
+        #contact {
+            li {
+                background-color: black;
+                border: none;
+                list-style: square;
+                color: white;
+                text-align: left;               
+            }
+        }
+
+        #calendar {
+            margin-left: 440px;
+        }
+
+        #weeks {
+           
+            li{
+                height: 40px;
+                width: 150px;
+                text-align: center;
+            }
+            
+        }
+
+        #days {
+            li {
+                align-items: flex-end;
+                justify-content: flex-end;
+            }
+
+            li:hover{
+                background-color: #F44336;
+                transition: background-color 250ms linear;
+            }
+        }
+
+        .login-button {
+    /* Rectangle 18 */
+            position: flex;
+            width: 183px;
+            height: 48px;
+            background: white;
+            border-radius: 80px;
+            transform: rotate(0.12deg);
+            color: black;
+            font-family: 'Staatliches';
+            font-weight: 400;
+            font-size: 30px;
+            line-height: 50px;
+            font-style: normal;
+            align-items: flex-end;
+            justify-content: flex-end;
+            align-self: center;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        #auto-button {
+            position: relative;
+            text-align: center;
+            justify-content: right;
+         
+        }
+        .button-form {
+            margin-top: 10px;
+            margin-left: 400px;
+            text-align: center;
+            align-self: center;
+        }
+        
+    </style>
+</head>
+<body class="bg-black">
+    <header class="bg-black text-white py-4">
+        <div class="flex">
+            <div>
+                <h1 class="text-5xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="flex space-x-5 mr-[20px] justify-end w-full">
+                <!-- Left-centered links -->
+                <a href="index.html" class="text-3xl font-staatliches text-center">Home</a>
+                <a href="calendar.html" class="text-3xl font-staatliches text-center ">Calendar</a>
+                <a href="contact.html" class="text-3xl font-staatliches text-center ">Contact</a>
+                <a href="login.html" class="text-3xl font-staatliches text-center">Login</a>
+                <a href="register.html" class="text-3xl font-staatliches text-center pr-5">Register</a>
+    
+            </div>
+        </div>
+    </header>
+
+    <div id="contact" class="text-white font-staatliches mt-10 ml-4 absolute">
+        <h1 class="text-5xl text-center">PEOPLE</h1>
+        <br>
+        <ul class="text-2xl bg-black text-left list-disc">
+            <li class="ml-5">Inaam</li>
+            <li class="ml-5">Nipun</li>
+            <li class="ml-5">Noel</li>
+            <li class="ml-5">Hoa</li>
+        </ul>
+    </div>
+
+    <div class="font-staatliches font-normal text-6xl leading-8 text-center text-white">
+        My Calendar 
+    </div>
+    
+    <div id="calendar" class="bg-black p-6 rounded-md shadow-md mt-10">
+        <h2 class="text-2xl text-white mb-4 font-staatliches">February 2024</h2>
+
+        <ul id="weeks" class="grid min-w-16 text-1.5xl grid-cols-7 font-staatliches text-center text-white mb-3">
+        
+            <li>Sun</li>
+            <li>Mon</li>
+            <li>Tue</li>
+            <li>Wed</li>
+            <li>Thu</li>
+            <li>Fri</li>
+            <li>Sat</li>
+        </ul>
+            
+        <ul id="days" class="grid min-w-16 text-1.5xl grid-cols-7 font-staatliches text-center text-white">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+            <li>11</li>
+            <li>12</li>
+            <li>13</li>
+            <li>14</li>
+            <li>15</li>
+            <li>16</li>
+            <li>17</li>
+            <li>18</li>
+            <li>19</li>
+            <li>20</li>
+            <li>21</li>
+            <li>22</li>
+            <li>23</li>
+            <li>24</li>
+            <li>25</li>
+            <li>26</li>
+            <li>27</li>
+            <li>28</li>
+            <li>29</li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+    <div class="button-form">
+        <button class="login-button">MORE DETAILS</button>
+        <button id="auto-button" class="login-button">AUTO-GENERATE</button>
+    </div>
+    
+</body>
+</html>
+
+
