@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 On 1</title>
+    
+    <!-- Link to Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <style>
+        h2.font-staatliches {
+            font-family: 'Staatliches', cursive;
+        }
+        h1.font-staatliches, a.font-staatliches {
+            font-family: 'Staatliches', cursive;
+            animation-duration: 200ms;
+            
+        }
+        h1.font-staatliches {
+        font-family: 'Staatliches', cursive;
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        color: #FFFFFF; /* Set initial text color */
+        background-image: linear-gradient(to right, #FFFFFF, #FFFFFF); /* Initial gradient with the text color */
+        background-size: 100% 100%; /* Initially cover the text with the gradient */
+        background-repeat: no-repeat;
+        transition: background-size 0.2s, color 0.2s, transform 0.2s;
+        cursor: pointer;
+    }
+
+    h1.font-staatliches:hover {
+        color: #F44336;
+        background-size: 0% 100%; /* Change the background size to reveal the color from left to right */
+        transform: translateX(5%);
+    }
+        a.font-staatliches:hover{
+            color: #F44336;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            width: 400px;
+            height: 100px;
+            top: 28%;
+            left: 50%;
+            margin-left: -250px;
+            margin-top: -50px;;
+        }
+
+        .search-input {
+            width: 800px;
+            height: 73px;
+            border: none; /* Remove border */
+            border-radius: 80px;
+            text-align: center;
+            margin-left: 40px;
+            font-family: 'Staatliches';
+            font-size: 50px;
+            line-height: 84px; /* Match the height of the input for vertical alignment */
+            text-indent: 3.5%;
+            padding: 0;
+            outline: none; /* Remove default focus outline */
+        }
+
+        .search-button {
+            display: none;
+        }
+
+        .add-contact-container {
+            display: flex;
+            align-items: center;
+            /* justify-content: right; */
+            transform: translate(89%, -100%);
+        }
+
+        .add-contact-button {
+            background-color: #FFFFFF;
+            color: black;
+            border: none;
+            border-radius: 80px;
+            font-family: 'Staatliches';
+            font-size: 24px;
+            padding: 15px 30px;
+            margin-left: 20px;
+            cursor: pointer;
+            transition: background-color 0s, color 0s;
+        }
+
+        .add-contact-button:hover {
+            background-color: #F44336;
+            color: white;
+        }
+        .contact-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 90px;
+        }
+
+        .contact-field {
+            width: 400px;
+            height: 73px;
+            border: none;
+            margin-top: 50px;
+            border-radius: 80px;
+            text-align: center;
+            font-family: 'Staatliches';
+            margin-left: 20px;
+            font-size: 24px;
+            line-height: 73px;
+            outline: none;
+            transition: background-color 0s, color 0s;
+            position: relative;
+        }
+
+        .edit-button {
+            position: absolute;
+            bottom: 13px; /* Adjusted position */
+            left: 46%;
+            transform: translate(-40%, 18%);
+            background-color: #F44336;
+            color: white;
+            border: none;
+            border-radius: 60px;
+            font-family: 'Staatliches';
+            font-size: 24px;
+            padding: 0px 73px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .contact-field:hover .edit-button {
+            display: block;
+        }
+        .contact-field:hover {
+            background-color: #F44336;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-black overflow-hidden">
+
+</body>
+<header class="bg-black text-white py-4">
+    <div class="flex">
+        <div>
+            <h1 class="text-5xl ml-8 font-staatliches">1()N1</h1>
+        </div>
+        <div class="flex space-x-5 mr-[20px] justify-end w-full">
+            <!-- Left-centered links -->
+            <a href="index.html" class="text-3xl font-staatliches text-center">Home</a>
+            <a href="calendar.html" class="text-3xl font-staatliches text-center ">Calendar</a>
+            <a href="contact.html" class="text-3xl font-staatliches text-center ">Contact</a>
+            <a href="login.html" class="text-3xl font-staatliches text-center">Login</a>
+            <a href="register.html" class="text-3xl font-staatliches text-center pr-5">Register</a>
+
+        </div>
+
+    </div>
+</header>
+<h2 class="text-5xl font-staatliches text-center mt-10">Contact</h2>
+<div class="add-contact-container">
+    <button class="add-contact-button" onclick="window.location.href='add_contact.html'">ADD CONTACT</button>
+</div>
+<div class="search-container">
+    <form action="#" method="post" onsubmit="return false;">
+        <input type="text" id="search" class="search-input font-staatliches text-center text-white" placeholder="Search for usernames" required>
+        <button class="search-button" type="submit">Search</button>
+    </form>
+</div>
+
+<div class="contact-container">
+    <div class="contact-field bg-white">Inaam
+        <button class="edit-button" onclick="window.location.href='edit_contact.html'">Edit</button>
+    </div>
+    <div class="contact-field bg-white">Noel
+        <button class="edit-button" onclick="window.location.href='edit_contact.html'">Edit</button>
+    </div>
+    <div class="contact-field bg-white">Hoa
+        <button class="edit-button" onclick="window.location.href='edit_contact.html'">Edit</button>
+    </div>
+    <div class="contact-field bg-white">Nipun
+        <button class="edit-button" onclick="window.location.href='edit_contact.html'">Edit</button>
+    </div>
+</div>
+</body>
+</html>
+
