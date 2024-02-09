@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 On 1</title>
+    
+    <!-- Link to Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    
+        #dropdownToggle:checked ~ #dropdownMenu {
+            display: block;
+            position: absolute;
+            transform: translate(110%, -10%);
+        }
+        #dropdownToggle2:checked ~ #dropdownMenu2 {
+            display: block;
+            position: absolute;
+            transform: translate(110%, -10%);
+        }
+        .text{
+            font-family: 'Staatliches';
+        }
+    
+    </style>
+        <script>
+            function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+        x.style.display = "none";
+        } else {
+        x.style.display = "block";
+        }
+        }
+        </script>
+</head>
+<body class="bg-black overflow-hidden">
+    <header class="bg-black text-white py-4">
+        <!-- Normal Nav -->
+        <div class="hidden md:flex">
+            <div>
+                <h1 class="text text-5xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="flex space-x-5 mr-[20px] justify-end w-full">
+                <!-- Left-centered links -->
+                <a href="index.html" class="text text-3xl font-staatliches text-center hover:text-red-600">Home</a>
+                <a href="calendars.html" class="text text-3xl font-staatliches text-center hover:text-red-600">Calendars</a>
+                <a href="contact.html" class="text text-3xl font-staatliches text-center hover:text-red-600">Contact</a>
+                <a href="login.html" class="text text-3xl font-staatliches text-center hover:text-red-600">Login</a>
+                <a href="register.html" class="text text-3xl font-staatliches text-center pr-5 hover:text-red-600">Register</a>
+    
+            </div>
+        </div>
+        <!-- Mobile Nav -->
+        <div class=" flex md:hidden">
+            <div>
+                <h1 class="text text-3xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="overflow-hidden text-xl text-white relative color-white ml-auto mr-3">
+                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+    <!-- Links For mobile navbar -->
+    <ul id="myLinks" class='hidden text-center'>
+        <li class='text-black py-3 text-2xl bg-white no-underline'>
+            <a href="index.html" class="text text-2xl font-staatliches text-center">Home</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="calendars.html" class="text text-2xl font-staatliches text-center">Calendars</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="contact.html" class="text text-2xl font-staatliches text-center">Contact</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="login.html" class="text text-2xl font-staatliches text-center">Login</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="register.html" class="text text-2xl font-staatliches text-center">Register</a>
+        </li>
+    </ul>
+</body>
+<h2 class="text text-6xl text-center font-staatliches mt-10 ml-4 text-white">PEOPLE</h2>
+<div class="flex items-center justify-center w-full h-24 sm:h-32 md:h-40 lg:h-48">
+    <form action="#" method="post" onsubmit="return false;" class="w-11/12 sm:w-3/4 mx-auto">
+        <input type="text" id="search" class="text w-full h-12 sm:h-16 md:h-20 lg:h-24 rounded-full text-center text-black text-lg sm:text-xl md:text-2xl lg:text-3xl leading-10 pl-14 focus:outline-none" placeholder="Search for people" required>
+        <button class="hidden" type="submit">Search</button>
+    </form>
+</div>
+
+
+
+<div class="container w-full max-w-sm mx-auto mt-16 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <input type="checkbox" class="hidden" id="dropdownToggle">
+    <label for="dropdownToggle" class="flex justify-end px-4 pt-4 cursor-pointer">
+            <span class="sr-only">Open dropdown</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="https://www.w3.org/TR/SVG2/" fill="currentColor" viewBox="0 0 16 3">
+                <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
+            </svg>
+        </span>
+    </label>
+    <!-- Dropdown menu -->
+    <div class="z-10 hidden flex text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700" id="dropdownMenu">
+        <ul class="py-2">
+            <li>
+                <a href="editContact.html" class="text block px-4 py-2 text-m hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
+            </li>
+            <li>
+                <a href="#" class="text block px-4 py-2 text-m text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+            </li>
+        </ul>
+    </div>
+    <div class="flex flex-col items-center pb-10">
+        <h5 class="text mb-1 text-4xl font-medium text-gray-900 dark:text-white">Nipun</h5>
+        <span class="text text-xl text-gray-500 dark:text-gray-400">OG CODER</span>
+        <div class="flex mt-4 md:mt-6">
+            <a href="#" class="text inline-flex items-center px-4 py-2 text-xl font-medium text-center text-white bg-black rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-black dark:bg-black-600 dark:hover:bg-black-700 dark:focus:ring-black mr-5">Email</a>
+            <a href="#" class="text inline-flex items-center px-4 py-2 text-xl font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-black dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700 ms-3">Add to Project</a>
+        </div>
+    </div>
+</div>
+
+<div class="container2 w-full max-w-sm mx-auto mt-16 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <input type="checkbox" class="hidden" id="dropdownToggle2">
+    <label for="dropdownToggle2" class="flex justify-end px-4 pt-4 cursor-pointer">
+            <span class="sr-only">Open dropdown</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="https://www.w3.org/TR/SVG2/" fill="currentColor" viewBox="0 0 16 3">
+                <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
+            </svg>
+        </span>
+    </label>
+    <!-- Dropdown menu -->
+    <div class="z-10 hidden flex text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700" id="dropdownMenu2">
+        <ul class="py-2">
+            <li>
+                <a href="editContact.html" class="text block px-4 py-2 text-m hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
+            </li>
+            <li>
+                <a href="#" class="text block px-4 py-2 text-m text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+            </li>
+        </ul>
+    </div>
+    <div class="flex flex-col items-center pb-10">
+        <h5 class="text mb-1 text-4xl font-medium text-gray-900 dark:text-white">Hoa</h5>
+        <span class="text text-xl text-gray-500 dark:text-gray-400">Real one</span>
+        <div class="flex mt-4 md:mt-6">
+            <a href="#" class="text inline-flex items-center px-4 py-2 text-xl font-medium text-center text-white bg-black rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-black dark:bg-black-600 dark:hover:bg-black-700 dark:focus:ring-black mr-5">Email</a>
+            <a href="#" class="text inline-flex items-center px-4 py-2 text-xl font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-black dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700 ms-3">Add to Project</a>
+        </div>
+    </div>
+</div>
+
+</html>

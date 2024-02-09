@@ -12,9 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        .text{
-            font-family: 'Staatliches';
-        }
+    .text{
+    font-family: 'Staatliches';
+    }
     </style>
 
     <script>
@@ -29,7 +29,7 @@
     </script>
 
 </head>
-<body class="bg-black overflow-hidden">
+<body class="bg-white overflow-hidden">
     <header class="bg-black text-white py-4">
         <!-- Normal Nav -->
         <div class="hidden md:flex">
@@ -77,70 +77,44 @@
             <a href="register.html" class="text text-2xl font-staatliches text-center">Register</a>
         </li>
     </ul>
-</body>
-<h2 class="text text-6xl text-center mt-20 font-staatliches mt-10 text-white">CONTACTS</h2>
+
+<div class="flex items-center min-h-screen bg-black dark:bg-black ">
+    <div class="container mx-auto">
+        <div class="max-w-3xl mx-auto my-10 bg-white dark:bg-white p-5 rounded-md shadow-sm">
+            <div class="text-center">
+                <h1 class="text my-3 text-6xl font-semibold text-black dark:text-gray-200">ADD CONTACT</h1>
+                <p class="text text-gray-400 dark:text-gray-400">Fill up the form below to add as a contact.</p>
+            </div>
+            <div class="m-7">
+                <form action="https://api.web3forms.com/submit" method="POST" id="form">
+
+                    <input type="hidden" name="apikey" value="YOUR_ACCESS_KEY_HERE">
+                    <input type="hidden" name="subject" value="New Submission from Web3Forms">
+                    <input type="checkbox" name="botcheck" id="" style="display: none;">
 
 
-<div class="w-full max-w-md p-4 mx-auto mt-32 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-    <div class="flex items-center justify-between mb-4">
-        <h5 class="text text-4xl font-bold leading-none text-black dark:text-white">CONTACTS</h5>
-        <a href="add_contact.html" class="text text-xl font-medium text-red-600 hover:underline dark:text-blue-500">
-            ADD CONTACT
-        </a>
-   </div>
-   <div class="flow-root">
-        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center">
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text text-2xl font-medium text-black truncate dark:text-white">
-                            Nipun
-                        </p>
-                        <p class="text text-xl text-gray-500 truncate dark:text-gray-400">
-                            nsaini534@gmail.com
-                        </p>
+                    <div class="mb-6">
+                        <label for="name" class="text block mb-2 text-3xl text-black">Full Name</label>
+                        <input type="text" name="name" id="name" placeholder="Ohda Jack" required class="text w-full px-1 py-2 ml-1 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
                     </div>
-                </div>
-            </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text text-2xl font-medium text-black truncate dark:text-white">
-                            Inaam
-                        </p>
-                        <p class="text text-xl text-gray-500 truncate dark:text-gray-400">
-                            inaam@yahoo.com
-                        </p>
+                    <div class="mb-6">
+                        <label for="email" class="text block mb-2 text-3xl text-black ">Email Address</label>
+                        <input type="email" name="email" id="email" placeholder="ohda@gmail.com" required class="text w-full px-3 py-2 ml-1 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
                     </div>
-                </div>
-            </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center">
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text text-2xl font-medium text-black truncate dark:text-white">
-                            Noel
-                        </p>
-                        <p class="text text-xl text-gray-500 truncate dark:text-gray-400">
-                            noel@outlook.com
-                        </p>
+                    <div class="mb-6">
+
+                        <label for="phone" class="text text-3xl text-black ">Phone Number</label>
+                        <input type="text" name="phone" id="phone" placeholder="+1 (647) 234-567" required class="text w-full px-3 py-2 ml-1 mb-5 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
                     </div>
-                </div>
-            </li>
-            <li class="py-3 sm:py-4">
-                <div class="flex items-center ">
-                    <div class="flex-1 min-w-0 ms-4">
-                        <p class="text text-2xl font-medium text-black truncate dark:text-white">
-                            Hoa
-                        </p>
-                        <p class="text text-xl text-gray-500 truncate dark:text-gray-400">
-                            hoa@yahoo.com
-                        </p>
+                    <div class="mb-6">
+                        <button type="submit" class="text w-full px-3 py-4 text-white text-2xl bg-black rounded-md hover:bg-red-600 focus:bg-indigo-600 focus:outline-none">ADD CONTACT</button>
                     </div>
-                </div>
-            </li>
-        </ul>
-   </div>
+                    <p class="text-base text-center text-gray-400" id="result">
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
-
