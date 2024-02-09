@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link to Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <title>1 On 1</title>
+    <style>
+        *.font-staatliches {
+            font-family: 'Staatliches', cursive;
+            /* color: #F44336; */
+        }
+        .nav.font-staatliches:hover{
+            color: #F44336;
+        }
+        .custom-blue{
+            color: #2C73DF;
+        }
+        .custom-hover:hover{
+            color: #F44336;
+        }
+    </style>
+</head>
+<body class="bg-black">
+    <header class="bg-black text-white py-4">
+        <div class="flex">
+            <div>
+                <h1 class="text-5xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="flex space-x-5 mr-[20px] justify-end w-full">
+                <!-- Left-centered links -->
+                <a href="index.html" class="text-3xl nav font-staatliches text-center">Home</a>
+                <a href="calendars.html" class="text-3xl nav font-staatliches text-center">Calendars</a>
+                <a href="contact.html" class=" nav text-3xl font-staatliches text-center">Contacts</a>
+                <a href="login.html" class="nav text-3xl font-staatliches text-center">Login</a>
+                <a href="register.html" class="nav text-3xl font-staatliches text-center pr-5">Register</a>
+            </div>
+        </div>
+    </header>
+
+    <h1 class="text-white text-7xl font-staatliches text-center my-5">Calendars</h1>
+    
+    <!-- component -->
+    <div class='flex items-center justify-center my-10'>
+        <div class="flex w-1/3 mx-10 rounded-3xl">
+            <input class=" w-full h-12 rounded-3xl px-4 py-1 text-gray-400 outline-none focus:outline-none" type="search" name="search" placeholder="Search..." />
+        </div>
+    </div>
+
+    <!-- Calendar Cards -->
+    <div class="relative flex flex-col justify-center py-6 sm:py-12">
+        <div class="m-10 flex flex-col items-center mx-auto max-w-screen-lg">
+            <div class="grid w-full gap-10 grid-cols-3">
+                <!-- New Calendar Card Component -->
+                <a href="newCalendar.html" class=" hover:bg-gray-500 cursor-pointer w-full rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl border-dotted border-2 border-gray-300">
+                    <div class=" my-auto p-6 flex flex-col items-center justify-center">
+                        <div class="my-auto mx-auto p-6 flex items-center justify-center">
+                            <!-- Plus icon -->
+                            <div class="bg-white text-black w-12 h-12 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                </svg>
+                            </div>
+                            <span class="ml-2 text-white font-staatliches text-lg">New Calendar</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card Component -->
+                <div class="bg-white  w-full rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl">
+                    <div class="p-6">
+                        <div class="pb-2 mb-4 border-b border-stone-200 text-sm font-medium flex justify-between font-staatliches">
+                        <span class="flex items-center gap-1 custom-blue">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                            7 March, 2022
+                        </span>
+                        </div>
+                        <h3 class="mb-4 font-semibold  text-2xl"><a href="" class=" custom-hover custom-blue font-staatliches hover:text-[#F44336]">laboriosam doloribus quas. Voluptatum</a></h3>
+                        <p class="text-sm mb-0 font-staatliches">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore laborum iste laboriosam doloribus quas. Voluptatum
+                        </p>
+                    </div>
+                    <div class="mt-auto">
+                        <img src="./media/thumbnail.jpg" alt="" class="w-full h-48 object-cover">
+                    </div>
+                </div>
+                <!-- Card Component -->
+                <div class="bg-white  w-full rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl">
+                    <div class="p-6">
+                        <div class="pb-2 mb-4 border-b border-stone-200 text-sm font-medium flex justify-between font-staatliches">
+                        <span class="flex items-center gap-1 custom-blue">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                            7 March, 2022
+                        </span>
+                        </div>
+                        <h3 class="mb-4 font-semibold  text-2xl"><a href="" class="transition-all custom-hover custom-blue font-staatliches hover:text-[#F44336]">laboriosam doloribus quas. Voluptatum</a></h3>
+                        <p class="text-sm mb-0 font-staatliches">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore laborum iste laboriosam doloribus quas. Voluptatum
+                        </p>
+                    </div>
+                    <div class="mt-auto">
+                        <img src="./media/thumbnail.jpg" alt="" class="w-full h-48 object-cover">
+                    </div>
+                </div>
+                <!-- Card Component -->
+                <div class="bg-white  w-full rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl">
+                    <div class="p-6">
+                        <div class="pb-2 mb-4 border-b border-stone-200 text-sm font-medium flex justify-between font-staatliches">
+                        <span class="flex items-center gap-1 custom-blue">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                            7 March, 2022
+                        </span>
+                        </div>
+                        <h3 class="mb-4 font-semibold  text-2xl"><a href="" class="transition-all custom-hover custom-blue font-staatliches hover:text-[#F44336]">laboriosam doloribus quas. Voluptatum</a></h3>
+                        <p class="text-sm mb-0 font-staatliches">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore laborum iste laboriosam doloribus quas. Voluptatum
+                        </p>
+                    </div>
+                    <div class="mt-auto">
+                        <img src="./media/thumbnail.jpg" alt="" class="w-full h-48 object-cover">
+                    </div>
+                </div>
+                <!-- Card Component -->
+                <div class="bg-white  w-full rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl">
+                    <div class="p-6">
+                        <div class="pb-2 mb-4 border-b border-stone-200 text-sm font-medium flex justify-between font-staatliches">
+                        <span class="flex items-center gap-1 custom-blue">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                            7 March, 2022
+                        </span>
+                        </div>
+                        <h3 class="mb-4 font-semibold  text-2xl"><a href="" class="transition-all custom-hover custom-blue font-staatliches hover:text-[#F44336]">laboriosam doloribus quas. Voluptatum</a></h3>
+                        <p class="text-sm mb-0 font-staatliches">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore laborum iste laboriosam doloribus quas. Voluptatum
+                        </p>
+                    </div>
+                    <div class="mt-auto">
+                        <img src="./media/thumbnail.jpg" alt="" class="w-full h-48 object-cover">
+                    </div>
+                </div>
+                <!-- Card Component -->
+                <div class="bg-white  w-full rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl">
+                    <div class="p-6">
+                        <div class="pb-2 mb-4 border-b border-stone-200 text-sm font-medium flex justify-between font-staatliches">
+                        <span class="flex items-center gap-1 custom-blue">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                            7 March, 2022
+                        </span>
+                        </div>
+                        <h3 class="mb-4 font-semibold  text-2xl"><a href="" class="transition-all custom-hover custom-blue font-staatliches hover:text-[#F44336]">laboriosam doloribus quas. Voluptatum</a></h3>
+                        <p class="text-sm mb-0 font-staatliches">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore laborum iste laboriosam doloribus quas. Voluptatum
+                        </p>
+                    </div>
+                    <div class="mt-auto">
+                        <img src="./media/thumbnail.jpg" alt="" class="w-full h-48 object-cover">
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div> 
+
+
+      
+
+
+    
+</body>
+</html>
