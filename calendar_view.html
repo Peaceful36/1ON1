@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <title>Calendar</title>
 
     <style>
@@ -27,39 +29,36 @@
             color: #F44336;
         }
 
-        li {
-            display: grid;
-            border: solid;
+        .custom-sizing{
             width: 150px;
             height: 80px;
-            background-color: gray;
         }
 
-        .text-6xl {
-            margin-left: 400px;
+
+        .custom-list {
+            list-style-type: disc; /* Use disc as bullet point */
+            margin-left: 20px; /* Adjust margin for indentation */
+            padding-left: 10px; /* Add padding for bullet point spacing */
+            color: white;
         }
 
         #contact {
-            li {
+            div {
                 background-color: black;
                 border: none;
                 list-style: square;
                 color: white;
-                text-align: center;
-                
+                text-align: left;               
             }
-            li::marker {
-                color: white;
-            } 
         }
 
         #calendar {
-            margin-left: 440px;
+            margin-left: 300px;
         }
 
         #weeks {
            
-            li{
+            div{
                 height: 40px;
                 width: 150px;
                 text-align: center;
@@ -68,19 +67,15 @@
         }
 
         #days {
-            li {
+            div {
                 align-items: flex-end;
-                justify-content: flex-end;
+                /* justify-content: flex-end;  */
+                text-align: center;
             }
 
-            li:hover{
-                background-color: #F44336;
-                transition: background-color 250ms linear;
-            }
         }
 
         .login-button {
-    /* Rectangle 18 */
             position: flex;
             width: 183px;
             height: 48px;
@@ -92,107 +87,168 @@
             font-weight: 400;
             font-size: 30px;
             line-height: 50px;
-            font-style: normal;
-            align-items: flex-end;
-            justify-content: flex-end;
-            align-self: center;
-            text-align: center;
-            margin-top: 5px;
+            margin-top: 10px;
         }
 
-        #auto-button {
-            position: relative;
-            text-align: center;
-            justify-content: right;
-         
-        }
-        .button-form {
-            margin-top: 10px;
-            margin-left: 400px;
-            text-align: center;
-            align-self: center;
-        }
+        /* Media queries for responsiveness */
+@media only screen and (max-width: 600px) {
+    #calendar {
+        margin-left: 0px;
+        font-size: smaller;
+    }
+    #weeks div {
+        width: 75px;
+        height: 40px;
+    }
+    .custom-sizing{
+        width: 75px;
+        height: 40px;
+    }
+}
+
         
     </style>
+    <script>
+        function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+        }
+    </script>
 </head>
 <body class="bg-black">
     <header class="bg-black text-white py-4">
-        <div class="flex">
+        <!-- Normal Nav -->
+        <div class="hidden md:flex">
             <div>
                 <h1 class="text-5xl ml-8 font-staatliches">1()N1</h1>
             </div>
             <div class="flex space-x-5 mr-[20px] justify-end w-full">
                 <!-- Left-centered links -->
                 <a href="index.html" class="text-3xl font-staatliches text-center">Home</a>
-                <a href="calendar.html" class="text-3xl font-staatliches text-center ">Calendar</a>
+                <a href="calendars.html" class="text-3xl font-staatliches text-center ">Calendars</a>
                 <a href="contact.html" class="text-3xl font-staatliches text-center ">Contact</a>
                 <a href="login.html" class="text-3xl font-staatliches text-center">Login</a>
                 <a href="register.html" class="text-3xl font-staatliches text-center pr-5">Register</a>
     
             </div>
         </div>
+        <!-- Mobile Nav -->
+        <div class=" flex md:hidden">
+            <div>
+                <h1 class="text-3xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="overflow-hidden text-xl text-white relative color-white ml-auto mr-3">
+                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
     </header>
 
-    <div class="font-staatliches font-normal text-6xl leading-8 text-center text-white">
-        Calendar Name
-    </div>
+    <!-- Links For mobile navbar -->
+    <ul id="myLinks" class='hidden text-center'>
+        <div class='text-black py-3 text-2xl bg-white no-underline'>
+            <a href="index.html" class="text-2xl font-staatliches text-center">Home</a>
+        </div>
+        <div class='text-black py-3 text-2xl bg-white'>
+            <a href="calendars.html" class="text-2xl font-staatliches text-center ">Calendars</a>
+        </div>
+        <div class='text-black py-3 text-2xl bg-white'>
+            <a href="contact.html" class="text-2xl font-staatliches text-center ">Contact</a>
+        </div>
+        <div class='text-black py-3 text-2xl bg-white'>
+            <a href="login.html" class="text-2xl font-staatliches text-center">Login</a>
+        </div>
+        <div class='text-black py-3 text-2xl bg-white'>
+            <a href="register.html" class="text-2xl font-staatliches text-center">Register</a>
+        </div>
+    </ul>
     
-    <div id="calendar" class="bg-black p-6 rounded-md shadow-md mt-10">
-        <h2 class="text-2xl text-white mb-4 font-staatliches">February 2024</h2>
-
-        <ul id="weeks" class="grid min-w-16 text-1.5xl grid-cols-7 font-staatliches text-center text-white mb-3">
-        
-            <li>Sun</li>
-            <li>Mon</li>
-            <li>Tue</li>
-            <li>Wed</li>
-            <li>Thu</li>
-            <li>Fri</li>
-            <li>Sat</li>
-        </ul>
-            
-        <ul id="days" class="grid min-w-16 text-1.5xl grid-cols-7 font-staatliches text-center text-white">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-            <li>7</li>
-            <li>8</li>
-            <li>9</li>
-            <li>10</li>
-            <li>11</li>
-            <li>12</li>
-            <li>13</li>
-            <li>14</li>
-            <li>15</li>
-            <li>16</li>
-            <li>17</li>
-            <li>18</li>
-            <li>19</li>
-            <li>20</li>
-            <li>21</li>
-            <li>22</li>
-            <li>23</li>
-            <li>24</li>
-            <li>25</li>
-            <li>26</li>
-            <li>27</li>
-            <li>28</li>
-            <li>29</li>
-            <li></li>
-            <li></li>
-        </ul>
+    <div class="font-staatliches text-6xl leading-8 text-white text-center">
+        My Calendar 
     </div>
 
-    <div class="button-form">
-        <button class="login-button">MORE DETAILS</button>
-        <button id="auto-button" class="login-button">AUTO-GENERATE</button>
+    <div class="flex flex-col md:flex-row">
+        <div id="contact" class="text-white font-staatliches mt-11 ml-4 md:h-full">
+            <h1 class="text-5xl text-center">PEOPLE</h1>
+            <ul class="custom-list text-2xl mt-3">
+                <div class="ml-5 border-2 mb-5 bg-gray-400">Inaam</div>
+                <div class="ml-5 border-2 mb-5 bg-gray-400">Nipun</div>
+                <div class="ml-5 border-2 mb-5 bg-gray-400">Noel</div>
+                <div class="ml-5 border-2 mb-5 bg-gray-400">Hoa</div>
+
+            </ul>
+            <button class="login-button ">MORE DETAILS</button>
+
+        </div>
+        
+        <div id="calendar" class="bg-black rounded-md shadow-md mt-10">
+            <h2 class="md:text-2xl text-white mb-4 font-staatliches">February 2024</h2>
+
+            <ul id="weeks" class="grid min-w-16 text-1.5xl grid-cols-7 font-staatliches text-center text-white mb-3">
+            
+                <div class="grid border-2 custom-sizing bg-gray-400">Sun</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">Mon</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">Tue</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">Wed</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">Thu</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">Fri</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">Sat</div>
+            </ul>
+                
+            <ul id="days" class="grid min-w-16 text-1.5xl grid-cols-7 font-staatliches text-white">
+                <div class="grid border-2 custom-sizing bg-gray-400"></div>
+                <div class="grid border-2 custom-sizing bg-gray-400"></div>
+                <div class="grid border-2 custom-sizing bg-gray-400"></div>
+                <div class="grid border-2 custom-sizing bg-gray-400"></div>
+                <div class="grid border-2 custom-sizing bg-gray-400">1</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">2</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">
+                    <ul><li class="hidden md:flex bg-red-500">CSC301 Meeting @9AM</li><li class="hidden md:flex text-center bg-blue-500">CSC369 Meeting @9AM</li></ul>
+                    <span> 3 </span>
+                </div>
+                <div class="grid border-2 custom-sizing bg-gray-400">4</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">5</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">6</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">7</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">8</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">9</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">10</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">11</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">12</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">13</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">14</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">
+                    <ul><li class="hidden md:flex text-center bg-red-500">CSC301 Meeting @9AM</li><li class="hidden md:flex text-center bg-blue-500">CSC369 Meeting @9AM</li></ul>
+                    <span> 15 </span>
+                </div>
+                <div class="grid border-2 custom-sizing bg-gray-400">16</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">17</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">18</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">19</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">
+                    <ul><li class="hidden md:flex text-center bg-red-500">CSC301 Meeting @1AM</li><li class="hidden md:flex text-center bg-blue-500">CSC369 Meeting @1AM</li></ul>
+                    <span> 20 </span>
+                </div>
+                <div class="grid border-2 custom-sizing bg-gray-400">21</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">22</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">23</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">24</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">25</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">26</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">27</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">28</div>
+                <div class="grid border-2 custom-sizing bg-gray-400">29</div>
+                <div class="grid border-2 custom-sizing bg-gray-400"></div>
+                <div class="grid border-2 custom-sizing bg-gray-400"></div>
+            </ul>
+            <button class="login-button justify-end ">AUTO-GENERATE</button>
+        </div>
     </div>
     
 </body>

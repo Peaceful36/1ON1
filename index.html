@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         h2.font-staatliches {
             font-family: 'Staatliches', cursive;
@@ -53,11 +54,22 @@
             transform: translateX(10%); /* Translate the image to the center on hover */
         }
     </style>
+    <script>
+        function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+        }
+    </script>
 </head>
 <body class="bg-white overflow-hidden">
 
 <header class="bg-black text-white py-4">
-    <div class="flex">
+    <!-- Normal Nav -->
+    <div class="hidden md:flex">
         <div>
             <h1 class="text-5xl ml-8 font-staatliches">1()N1</h1>
         </div>
@@ -70,20 +82,50 @@
             <a href="register.html" class="text-3xl font-staatliches text-center pr-5">Register</a>
 
         </div>
-
+    </div>
+    <!-- Mobile Nav -->
+    <div class=" flex md:hidden">
+        <div>
+            <h1 class="text-3xl ml-8 font-staatliches">1()N1</h1>
+        </div>
+        <div class="overflow-hidden text-xl text-white relative color-white ml-auto mr-3">
+            <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+            </a>
+        </div>
     </div>
 </header>
+<!-- Links For mobile navbar -->
+<ul id="myLinks" class='hidden text-center'>
+    <li class='text-black py-3 text-2xl bg-white no-underline'>
+        <a href="index.html" class="text-2xl font-staatliches text-center">Home</a>
+    </li>
+    <li class='text-black py-3 text-2xl bg-white'>
+        <a href="calendars.html" class="text-2xl font-staatliches text-center ">Calendars</a>
+    </li>
+    <li class='text-black py-3 text-2xl bg-white'>
+        <a href="contact.html" class="text-2xl font-staatliches text-center ">Contact</a>
+    </li>
+    <li class='text-black py-3 text-2xl bg-white'>
+        <a href="login.html" class="text-2xl font-staatliches text-center">Login</a>
+    </li>
+    <li class='text-black py-3 text-2xl bg-white'>
+        <a href="register.html" class="text-2xl font-staatliches text-center">Register</a>
+    </li>
+</ul>
 
-<div class="container mx-auto px-4 flex h-screen items-center">
-    <div class="w-1/2 justify-end items-center">
+<!-- 'sm:flex md:hidden lg:hidden xl:hidden absolute top-0 left-0 w-full h-screen bg-blue-500 flex flex-col justify-center items-center' -->
+
+<div class=" my-auto md:pt-0 md:mx-auto px-4 md:flex h-screen items-center ">
+    <div class="md:w-1/2 justify-center text-center md:justify-end items-center">
         <h2 class="text-9xl font-staatliches text-red-600 mt-10 text-center">1 ON 1</h2>
         <h2 class="text-6xl font-staatliches text-white mt-2 pb-20 text-center">Scheduling Tool</h2>
     </div>
-    <div class="w-1/2 flex justify-end items-center relative">
+    <div class=" hidden md:flex w-1/2 justify-end items-center relative">
         <img class="w-1/2 max-w-none object-cover object-right image-full pl-40" src="media/main-page.png" alt="Logo" style="width: 160%; transition: transform 0.3s;">
     </div>
 </div>
-
 
 </body>
 </html>

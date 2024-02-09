@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Staatliches">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
+    label.font-staatliches{
+            font-family: 'Staatliches', cursive;
+        }
       h2.font-staatliches {
           font-family: 'Staatliches', cursive;
           /* color: #F44336; */
@@ -40,192 +43,100 @@
       a.font-staatliches:hover{
           color: #F44336;
       }
-
-      .image-full {
-          width: 80%;
-          transition: transform 1.2s;
-          transform: translateX(40%) translateY(-10%); /* Initially translate the image to the right */
-
-      }
-
-      .image-full:hover {
-          transform: translateX(10%); /* Translate the image to the center on hover */
-      }
-      
-.header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-}
-h1 {
-    margin: 0;
-}
-.container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 0 20px;
-}
-p {
-    line-height: 1.6;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: black;
-} 
-
-.login-header {
-    display: flex;
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
-}
-
-.logo-img {
-    position: relative;
-    width: 92px;
-    height: 40px;
-    left: 17px;
-    top: 17px; 
-}
-
-.login-container {
-    display: flex;
-    position: absolute;
-    width: 500px;
-    height: 450px;
-    /* text-align: center; */
-    align-items: center;
-    justify-content: center;
-    top: 50%;
-    left: 50%;
-    margin-left: -250px;
-    margin-top: -225px;
-    background: #D9D9D9;
-}
-
-.login-content {
-    /* Username */
-    display: flex;
-    width: 651px;
-    height: 98px;
-    font-family: 'Staatliches';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 40px;
-    line-height: 50px;
-    text-align: left;
-    align-items: center;
-    color: #000000;
-}
-
- .login-button {
-    /* Rectangle 18 */
-    position: flex;
-    width: 183px;
-    height: 48px;
-    background: #1C1A1A;
-    border-radius: 80px;
-    transform: rotate(0.12deg);
-    color: white;
-    font-family: 'Staatliches';
-    font-weight: 400;
-    font-size: 40px;
-    line-height: 50px;
-    font-style: normal;
-    align-items: center;
-    align-self: center;
-    text-align: center;
-    margin-top: 5px;
- }
-
- .register-button {
-    text-align: center;
-    align-content: center;
- }
-
- .button-form {
-    margin-top: 10px;
-    margin-left: 55px;
-    text-align: center;
-    align-self: center;
- }
-
- .login-label {
-    margin-left: 50px;
- }
-
- input {
-    /* Rectangle 8 */
-    position: flex;
-    text-align: left;
-    width: 400px;
-    height: 48px;
-    background: #FFFFFF;
-    border-radius: 80px;
-    margin-left: 40px;
-    font-family: 'Staatliches';
-    font-weight: 400;
-    font-size: 40px;
-    line-height: 50px;
-    text-indent: 5%;
-    padding: auto;
- }
-
- button:hover {
-    background-color: #F44336;
- }
-
-
   </style>
+      <script>
+        function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+        }
+    </script>
+</head>
     <title>Log In</title>
 </head>
-<body>
-  <header class="bg-black text-white py-4">
-    <div class="flex">
-        <div>
-            <h1 class="text-5xl ml-8 font-staatliches">1()N1</h1>
-        </div>
-        <div class="flex space-x-5 mr-[20px] justify-end w-full">
-            <!-- Left-centered links -->
-            <a href="index.html" class="text-3xl font-staatliches text-center">Home</a>
-            <a href="calendars.html" class="text-3xl font-staatliches text-center ">Calendars</a>
-            <a href="contact.html" class="text-3xl font-staatliches text-center ">Contact</a>
-            <a href="login.html" class="text-3xl font-staatliches text-center">Login</a>
-            <a href="register.html" class="text-3xl font-staatliches text-center pr-5">Register</a>
-
-        </div>
-
-    </div>
-</header>
+<body class="bg-black">
+    <header class="bg-black text-white py-4">
+        <!-- Normal Nav -->
+        <div class="hidden md:flex">
+            <div>
+                <h1 class="text-5xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="flex space-x-5 mr-[20px] justify-end w-full">
+                <!-- Left-centered links -->
+                <a href="index.html" class="text-3xl font-staatliches text-center">Home</a>
+                <a href="calendars.html" class="text-3xl font-staatliches text-center ">Calendars</a>
+                <a href="contact.html" class="text-3xl font-staatliches text-center ">Contact</a>
+                <a href="login.html" class="text-3xl font-staatliches text-center">Login</a>
+                <a href="register.html" class="text-3xl font-staatliches text-center pr-5">Register</a>
     
-    <div class="login-container">
-        <div class="login-content">
-            <form action="#" method="post">
-              <div class="form-group">
-                <label class="login-label" for="username">Username</label>
-                <br>
-                <input type="text" id="username" name="username" required>
-              </div>
-        
-              <div class="form-group">
-                <label class="login-label" for="password">Password</label>
-                <br>
-                <input type="password" id="password" name="password" required>
-              </div>
-          
-                <div class="button-form">
-                  <button class="login-button" type="submit">Login</button>
-                </div>
-                
-              </form>
-
-              
+            </div>
         </div>
+        <!-- Mobile Nav -->
+        <div class=" flex md:hidden">
+            <div>
+                <h1 class="text-3xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="overflow-hidden text-xl text-white relative color-white ml-auto mr-3">
+                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+    <!-- Links For mobile navbar -->
+    <ul id="myLinks" class='hidden text-center'>
+        <li class='text-black py-3 text-2xl bg-white no-underline'>
+            <a href="index.html" class="text-2xl font-staatliches text-center">Home</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="calendars.html" class="text-2xl font-staatliches text-center ">Calendars</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="contact.html" class="text-2xl font-staatliches text-center ">Contact</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="login.html" class="text-2xl font-staatliches text-center">Login</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="register.html" class="text-2xl font-staatliches text-center">Register</a>
+        </li>
+    </ul>
+    
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=red&shade=600" alt="Your Company">
+      <h2 class="mt-10 text-center text-5xl font-bold leading-9 tracking-tight text-white font-staatliches">Sign in</h2>
     </div>
+  
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <form class="space-y-6" action="#" method="POST">
+        <div>
+          <label for="email" class="block text-2xl font-medium leading-6 text-white font-staatliches">Email address</label>
+          <div class="mt-2">
+            <input id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+  
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="password" class="block text-2xl font-medium leading-6 text-white font-staatliches">Password</label>
+          </div>
+          <div class="mt-2">
+            <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+  
+        <div>
+          <button onclick="return false;" type="submit" class="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Sign in</button>
+        </div>
+      </form>
+  
+    </div>
+  </div>
     
 </body>
 </html>
