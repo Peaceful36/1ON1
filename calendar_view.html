@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <title>Calendar</title>
 
     <style>
@@ -95,24 +97,48 @@
 
         
     </style>
+    <script>
+        function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+        }
+    </script>
 </head>
 <body class="bg-black">
-    <header class="bg-black mt-2 text-white py-4">
-        <div class="flex">
+    <header class="bg-black text-white py-4">
+        <!-- Normal Nav -->
+        <div class="hidden md:flex">
             <div>
                 <h1 class="text-5xl ml-8 font-staatliches">1()N1</h1>
             </div>
             <div class="flex space-x-5 mr-[20px] justify-end w-full">
                 <!-- Left-centered links -->
                 <a href="index.html" class="text-3xl font-staatliches text-center">Home</a>
-                <a href="calendar.html" class="text-3xl font-staatliches text-center ">Calendar</a>
+                <a href="calendars.html" class="text-3xl font-staatliches text-center ">Calendars</a>
                 <a href="contact.html" class="text-3xl font-staatliches text-center ">Contact</a>
                 <a href="login.html" class="text-3xl font-staatliches text-center">Login</a>
                 <a href="register.html" class="text-3xl font-staatliches text-center pr-5">Register</a>
     
             </div>
         </div>
+        <!-- Mobile Nav -->
+        <div class=" flex md:hidden">
+            <div>
+                <h1 class="text-3xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="overflow-hidden text-xl text-white relative color-white ml-auto mr-3">
+                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
     </header>
+    
     <div class="font-staatliches text-6xl leading-8 text-white text-center">
         My Calendar 
     </div>
