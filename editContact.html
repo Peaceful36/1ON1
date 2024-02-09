@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link to Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <title>1 On 1</title>
+
+    <style>
+        *.font-staatliches {
+            font-family: 'Staatliches', cursive;
+            /* color: #F44336; */
+        }
+        .nav.font-staatliches:hover{
+            color: #F44336;
+        }
+        .custom-blue{
+            color: #2C73DF;
+        }
+        .custom-hover:hover{
+            color: #F44336;
+        }
+        .custom-form-width{
+            max-width: 550px;
+        }
+    </style>
+</head>
+<body class="bg-black">
+    <header class="bg-black text-white py-4">
+        <div class="flex">
+            <div>
+                <h1 class="text-5xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="flex space-x-5 mr-[20px] justify-end w-full">
+                <!-- Left-centered links -->
+                <a href="index.html" class="text-3xl nav font-staatliches text-center">Home</a>
+                <a href="calendars.html" class="text-3xl nav font-staatliches text-center">Calendars</a>
+                <a href="#" class=" nav text-3xl font-staatliches text-center">Contacts</a>
+                <a href="login.html" class="nav text-3xl font-staatliches text-center">Login</a>
+                <a href="register.html" class="nav text-3xl font-staatliches text-center pr-5">Register</a>
+            </div>
+        </div>
+    </header>
+
+    <h1 class="text-white text-7xl font-staatliches text-center my-5">Edit Contact</h1>
+
+    <!-- component -->
+    <div class="flex items-center justify-center p-12 px-[100px]">
+        <div class="mx-auto w-full custom-form-width">
+        <form action="" method="POST">
+            <div class="mb-5">
+            <label
+                for="name"
+                class="mb-3 block text-base font-medium text-white"
+            >
+                Full Name
+            </label>
+            <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Full Name"
+                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+            />
+            </div>
+            <div class="mb-5">
+            <label
+                for="email"
+                class="mb-3 block text-base font-medium text-white"
+            >
+                Email Address
+            </label>
+            <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="example@domain.com"
+                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+            />
+            </div>
+            <div class="mb-5">
+            <label
+                for="note"
+                class="mb-3 block text-base font-medium text-white"
+            >
+                Note
+            </label>
+            <input
+                type="text"
+                name="note"
+                id="note"
+                placeholder="Enter your note"
+                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+            />
+            </div>
+            <div class="flex">
+                <button
+                    class="mr-auto hover:bg-gray-500 rounded-md bg-gray-400 py-3 px-8 text-base font-semibold text-gray-900 outline-none "
+                >
+                    Cancel
+                </button>
+            <button
+                class="ml-auto hover:bg-blue-800 rounded-md bg-blue-600 py-3 px-8 text-base font-semibold text-white outline-none"
+            >
+                Submit
+            </button>
+            </div>
+        </form>
+        </div>
+    </div>
+    
+</body>
+</html>
