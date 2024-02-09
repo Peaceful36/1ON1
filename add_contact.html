@@ -10,46 +10,111 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        h2.font-staatliches {
-            font-family: 'Staatliches', cursive;
-            /* color: #F44336; */
-        }
-        h1.font-staatliches, a.font-staatliches {
-            font-family: 'Staatliches', cursive;
-            animation-duration: 200ms;
-            
-        }
-        h1.font-staatliches {
-        font-family: 'Staatliches', cursive;
-        position: relative;
-        display: inline-block;
-        overflow: hidden;
-        color: #FFFFFF; /* Set initial text color */
-        background-image: linear-gradient(to right, #FFFFFF, #FFFFFF); /* Initial gradient with the text color */
-        background-size: 100% 100%; /* Initially cover the text with the gradient */
-        background-repeat: no-repeat;
-        transition: background-size 0.2s, color 0.2s, transform 0.2s;
-        cursor: pointer;
-    }
-    h1.font-staatliches:hover {
-        color: #F44336;
-        background-size: 0% 100%; /* Change the background size to reveal the color from left to right */
-        transform: translateX(5%);
+    .text{
+    font-family: 'Staatliches';
     }
     </style>
+
+    <script>
+        function myFunction() {
+    var x = document.getElementById("myLinks");
+    if (x.style.display === "block") {
+    x.style.display = "none";
+    } else {
+    x.style.display = "block";
+    }
+    }
+    </script>
+
 </head>
 <body class="bg-white overflow-hidden">
-<header class="bg-white text-white py-4">
-    <div class="flex">
-        <div>
-            <h1 class="text-5xl ml-8 font-staatliches text-black">1()N1</h1>
+    <header class="bg-black text-white py-4">
+        <!-- Normal Nav -->
+        <div class="hidden md:flex">
+            <div>
+                <h1 class="text text-5xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="flex space-x-5 mr-[20px] justify-end w-full">
+                <!-- Left-centered links -->
+                <a href="index.html" class="text text-3xl font-staatliches text-center hover:text-red-600">Home</a>
+                <a href="calendars.html" class="text text-3xl font-staatliches text-center hover:text-red-600">Calendars</a>
+                <a href="contact.html" class="text text-3xl font-staatliches text-center hover:text-red-600">Contact</a>
+                <a href="login.html" class="text text-3xl font-staatliches text-center hover:text-red-600">Login</a>
+                <a href="register.html" class="text text-3xl font-staatliches text-center pr-5 hover:text-red-600">Register</a>
+    
+            </div>
         </div>
+        <!-- Mobile Nav -->
+        <div class=" flex md:hidden">
+            <div>
+                <h1 class="text text-3xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="overflow-hidden text-xl text-white relative color-white ml-auto mr-3">
+                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+    <!-- Links For mobile navbar -->
+    <ul id="myLinks" class='hidden text-center'>
+        <li class='text-black py-3 text-2xl bg-white no-underline'>
+            <a href="index.html" class="text text-2xl font-staatliches text-center">Home</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="calendars.html" class="text text-2xl font-staatliches text-center">Calendars</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="contact.html" class="text text-2xl font-staatliches text-center">Contact</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="login.html" class="text text-2xl font-staatliches text-center">Login</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="register.html" class="text text-2xl font-staatliches text-center">Register</a>
+        </li>
+    </ul>
 
+<div class="flex items-center min-h-screen bg-black dark:bg-black ">
+    <div class="container mx-auto">
+        <div class="max-w-3xl mx-auto my-10 bg-white dark:bg-white p-5 rounded-md shadow-sm">
+            <div class="text-center">
+                <h1 class="text my-3 text-6xl font-semibold text-black dark:text-gray-200">ADD CONTACT</h1>
+                <p class="text text-gray-400 dark:text-gray-400">Fill up the form below to add as a contact.</p>
+            </div>
+            <div class="m-7">
+                <form action="https://api.web3forms.com/submit" method="POST" id="form">
+
+                    <input type="hidden" name="apikey" value="YOUR_ACCESS_KEY_HERE">
+                    <input type="hidden" name="subject" value="New Submission from Web3Forms">
+                    <input type="checkbox" name="botcheck" id="" style="display: none;">
+
+
+                    <div class="mb-6">
+                        <label for="name" class="text block mb-2 text-3xl text-black">Full Name</label>
+                        <input type="text" name="name" id="name" placeholder="Ohda Jack" required class="text w-full px-1 py-2 ml-1 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                    </div>
+                    <div class="mb-6">
+                        <label for="email" class="text block mb-2 text-3xl text-black ">Email Address</label>
+                        <input type="email" name="email" id="email" placeholder="ohda@gmail.com" required class="text w-full px-3 py-2 ml-1 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                    </div>
+                    <div class="mb-6">
+
+                        <label for="phone" class="text text-3xl text-black ">Phone Number</label>
+                        <input type="text" name="phone" id="phone" placeholder="+1 (647) 234-567" required class="text w-full px-3 py-2 ml-1 mb-5 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                    </div>
+                    <div class="mb-6">
+                        <button type="submit" class="text w-full px-3 py-4 text-white text-2xl bg-black rounded-md hover:bg-red-600 focus:bg-indigo-600 focus:outline-none">ADD CONTACT</button>
+                    </div>
+                    <p class="text-base text-center text-gray-400" id="result">
+                    </p>
+                </form>
+            </div>
+        </div>
     </div>
-</header>
-
-
-
+</div>
 </body>
 </html>

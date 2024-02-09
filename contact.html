@@ -10,184 +10,136 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        h2.font-staatliches {
-            font-family: 'Staatliches', cursive;
-        }
-        h1.font-staatliches, a.font-staatliches {
-            font-family: 'Staatliches', cursive;
-            animation-duration: 200ms;
-            
-        }
-        h1.font-staatliches {
-        font-family: 'Staatliches', cursive;
-        position: relative;
-        display: inline-block;
-        overflow: hidden;
-        background-image: linear-gradient(to right, #444343, #383737); /* Initial gradient with the text color */
-        background-size: 100% 100%; /* Initially cover the text with the gradient */
-        background-repeat: no-repeat;
-        transition: background-size 0.2s, color 0.2s, transform 0.2s;
-        cursor: pointer;
-    }
-
-    h1.font-staatliches:hover {
-        color: #F44336;
-        background-size: 0% 100%; /* Change the background size to reveal the color from left to right */
-        transform: translateX(5%);
-    }
-        a.font-staatliches:hover{
-            color: #F44336;
-        }
-        .search-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            width: 400px;
-            height: 100px;
-            top: 28%;
-            left: 50%;
-            margin-left: -250px;
-            margin-top: -50px;;
-        }
-
-        .search-input {
-            width: 800px;
-            height: 73px;
-            border: none; /* Remove border */
-            border-radius: 80px;
-            text-align: center;
-            margin-left: 40px;
+        .text{
             font-family: 'Staatliches';
-            font-size: 50px;
-            line-height: 84px; /* Match the height of the input for vertical alignment */
-            text-indent: 3.5%;
-            padding: 0;
-            outline: none; /* Remove default focus outline */
-        }
-
-        .search-button {
-            display: none;
-        }
-
-        .add-contact-container {
-            display: flex;
-            align-items: center;
-            /* justify-content: right; */
-            transform: translate(89%, -100%);
-        }
-
-        .add-contact-button {
-            background-color: #FFFFFF;
-            color: black;
-            border: none;
-            border-radius: 80px;
-            font-family: 'Staatliches';
-            font-size: 24px;
-            padding: 15px 30px;
-            margin-left: 20px;
-            cursor: pointer;
-            transition: background-color 0s, color 0s;
-        }
-
-        .add-contact-button:hover {
-            background-color: #F44336;
-            color: white;
-        }
-        .contact-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 90px;
-        }
-
-        .contact-field {
-            width: 400px;
-            height: 73px;
-            border: none;
-            margin-top: 50px;
-            border-radius: 80px;
-            text-align: center;
-            font-family: 'Staatliches';
-            margin-left: 20px;
-            font-size: 24px;
-            line-height: 73px;
-            outline: none;
-            transition: background-color 0s, color 0s;
-            position: relative;
-        }
-
-        .edit-button {
-            position: absolute;
-            bottom: 13px; /* Adjusted position */
-            left: 46%;
-            transform: translate(-40%, 18%);
-            background-color: #F44336;
-            color: white;
-            border: none;
-            border-radius: 60px;
-            font-family: 'Staatliches';
-            font-size: 24px;
-            padding: 0px 73px;
-            cursor: pointer;
-            display: none;
-        }
-
-        .contact-field:hover .edit-button {
-            display: block;
-        }
-        .contact-field:hover {
-            background-color: #F44336;
-            color: white;
         }
     </style>
+
+    <script>
+        function myFunction() {
+    var x = document.getElementById("myLinks");
+    if (x.style.display === "block") {
+    x.style.display = "none";
+    } else {
+    x.style.display = "block";
+    }
+    }
+    </script>
+
 </head>
 <body class="bg-black overflow-hidden">
-
+    <header class="bg-black text-white py-4">
+        <!-- Normal Nav -->
+        <div class="hidden md:flex">
+            <div>
+                <h1 class="text text-5xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="flex space-x-5 mr-[20px] justify-end w-full">
+                <!-- Left-centered links -->
+                <a href="index.html" class="text text-3xl font-staatliches text-center hover:text-red-600">Home</a>
+                <a href="calendars.html" class="text text-3xl font-staatliches text-center hover:text-red-600">Calendars</a>
+                <a href="contact.html" class="text text-3xl font-staatliches text-center hover:text-red-600">Contact</a>
+                <a href="login.html" class="text text-3xl font-staatliches text-center hover:text-red-600">Login</a>
+                <a href="register.html" class="text text-3xl font-staatliches text-center pr-5 hover:text-red-600">Register</a>
+    
+            </div>
+        </div>
+        <!-- Mobile Nav -->
+        <div class=" flex md:hidden">
+            <div>
+                <h1 class="text text-3xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="overflow-hidden text-xl text-white relative color-white ml-auto mr-3">
+                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+    <!-- Links For mobile navbar -->
+    <ul id="myLinks" class='hidden text-center'>
+        <li class='text-black py-3 text-2xl bg-white no-underline'>
+            <a href="index.html" class="text text-2xl font-staatliches text-center">Home</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="calendars.html" class="text text-2xl font-staatliches text-center">Calendars</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="contact.html" class="text text-2xl font-staatliches text-center">Contact</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="login.html" class="text text-2xl font-staatliches text-center">Login</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="register.html" class="text text-2xl font-staatliches text-center">Register</a>
+        </li>
+    </ul>
 </body>
-<header class="bg-black text-white py-4">
-    <div class="flex">
-        <div>
-            <h1 class="text-5xl ml-8 font-staatliches text-white">1()N1</h1>
-        </div>
-        <div class="flex space-x-5 mr-[20px] justify-end w-full">
-            <!-- Left-centered links -->
-            <a href="index.html" class="text-3xl font-staatliches text-center">Home</a>
-            <a href="calendar.html" class="text-3xl font-staatliches text-center ">Calendar</a>
-            <a href="contact.html" class="text-3xl font-staatliches text-center ">Contact</a>
-            <a href="login.html" class="text-3xl font-staatliches text-center">Login</a>
-            <a href="register.html" class="text-3xl font-staatliches text-center pr-5">Register</a>
+<h2 class="text text-6xl text-center mt-20 font-staatliches mt-10 text-white">CONTACTS</h2>
 
-        </div>
 
-    </div>
-</header>
-<h2 class="text-5xl font-staatliches text-center mt-10">Contact</h2>
-<div class="add-contact-container">
-    <button class="add-contact-button" onclick="window.location.href='add_contact.html'">ADD CONTACT</button>
-</div>
-<div class="search-container">
-    <form action="#" method="post" onsubmit="return false;">
-        <input type="text" id="search" class="search-input font-staatliches text-center text-black" placeholder="Search for usernames" required>
-        <button class="search-button" type="submit">Search</button>
-    </form>
-</div>
-
-<div class="contact-container">
-    <div class="contact-field bg-white font-staatliches">Inaam
-        <button class="edit-button" onclick="window.location.href='edit_contact.html'">Edit</button>
-    </div>
-    <div class="contact-field bg-white font-staatliches">Noel
-        <button class="edit-button" onclick="window.location.href='edit_contact.html'">Edit</button>
-    </div>
-    <div class="contact-field bg-white font-staatliches">Hoa
-        <button class="edit-button" onclick="window.location.href='edit_contact.html'">Edit</button>
-    </div>
-    <div class="contact-field bg-white font-staatliches">Nipun
-        <button class="edit-button" onclick="window.location.href='edit_contact.html'">Edit</button>
-    </div>
+<div class="w-full max-w-md p-4 mx-auto mt-32 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <div class="flex items-center justify-between mb-4">
+        <h5 class="text text-4xl font-bold leading-none text-black dark:text-white">CONTACTS</h5>
+        <a href="add_contact.html" class="text text-xl font-medium text-red-600 hover:underline dark:text-blue-500">
+            ADD CONTACT
+        </a>
+   </div>
+   <div class="flow-root">
+        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+            <li class="py-3 sm:py-4">
+                <div class="flex items-center">
+                    <div class="flex-1 min-w-0 ms-4">
+                        <p class="text text-2xl font-medium text-black truncate dark:text-white">
+                            Nipun
+                        </p>
+                        <p class="text text-xl text-gray-500 truncate dark:text-gray-400">
+                            nsaini534@gmail.com
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li class="py-3 sm:py-4">
+                <div class="flex items-center ">
+                    <div class="flex-1 min-w-0 ms-4">
+                        <p class="text text-2xl font-medium text-black truncate dark:text-white">
+                            Inaam
+                        </p>
+                        <p class="text text-xl text-gray-500 truncate dark:text-gray-400">
+                            inaam@yahoo.com
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li class="py-3 sm:py-4">
+                <div class="flex items-center">
+                    <div class="flex-1 min-w-0 ms-4">
+                        <p class="text text-2xl font-medium text-black truncate dark:text-white">
+                            Noel
+                        </p>
+                        <p class="text text-xl text-gray-500 truncate dark:text-gray-400">
+                            noel@outlook.com
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li class="py-3 sm:py-4">
+                <div class="flex items-center ">
+                    <div class="flex-1 min-w-0 ms-4">
+                        <p class="text text-2xl font-medium text-black truncate dark:text-white">
+                            Hoa
+                        </p>
+                        <p class="text text-xl text-gray-500 truncate dark:text-gray-400">
+                            hoa@yahoo.com
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+   </div>
 </div>
 </body>
 </html>
