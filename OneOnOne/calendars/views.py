@@ -17,9 +17,9 @@ def getCalendars(request):
 
 @api_view(['POST'])
 def createCalendar(request):
+    request.data['participants'] = [request.user.id]
     serializer = CalendarSerializer(
         data=request.data, context={'request': request})
-    print(request.user)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
