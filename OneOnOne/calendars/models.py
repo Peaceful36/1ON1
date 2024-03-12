@@ -23,7 +23,9 @@ class Preference(models.Model):
 
 
 class Meeting(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    participants = models.ManyToManyField(User)
+    # calendar = models.ForeignKey(Calendar, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
     date = models.DateField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
@@ -31,6 +33,7 @@ class Meeting(models.Model):
         max_length=50,
         choices=PriorityChoices,
         default=PriorityChoices.NONE,
+        blank=True
     )
 
 
