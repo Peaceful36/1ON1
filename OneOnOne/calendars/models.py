@@ -13,8 +13,8 @@ class PriorityChoices(models.TextChoices):
 class Preference(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
     priority = models.CharField(
         max_length=50,
         choices=PriorityChoices,
