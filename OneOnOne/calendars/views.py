@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework import status
-from calendars.models import Calendar, Meeting
+from calendars.models import Calendar, Meeting, Preference
 from calendars.serializers import CalendarSerializer, MeetingSerializer, PreferenceSerializer
 from django.http import Http404
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -184,6 +184,8 @@ def editPreference(request, cid, pid):
         preference = calendar.preferences.get(id=pid)
     except Calendar.DoesNotExist:
         raise Http404("Calendar does not exist")
+    except Preference.DoesNotExist:
+        raise Http404("Preference does not exist")
     serializer = PreferenceSerializer(preference, data=request.data, partial=True)
     if serializer.is_valid():
         serializer.save()

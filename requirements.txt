@@ -1,0 +1,4 @@
+# All the packages we need to install
+django
+djangorestframework
+djangorestframework_simplejwt
