@@ -37,14 +37,15 @@ urlpatterns = [
     #      view=views, name="preferenceViewID"),
     
 
-    path('calendars/<int:cid>/meeting/create',
+     path('calendars/<int:cid>/meeting/create',
          view=views.createMeeting, name="meetingCreate"),
     
-    path('calendars/<int:cid>/meeting/<int:mid>',
+     path('calendars/<int:cid>/meeting/<int:mid>',
          view=views.getMeeting, name="meetingViewID"),
-    # path('calendars/<int:cid>/meeting/<int:mid>/edit',
-    #      view=views, name="meetingEdit"),
-    path('calendars/<int:cid>/meetings/all',
+     path('calendars/<int:cid>/meetings/all',
          view=views.getAllMeetingCal, name='calendar_meeting_all'),
+     
+     path('calendars/<int:cid>/meeting/<int:mid>/edit', view=views.editMeeting, name="meetingEdit"),
+
 
 ]

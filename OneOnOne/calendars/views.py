@@ -5,8 +5,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from calendars.models import Calendar, Meeting
 from calendars.serializers import CalendarSerializer, MeetingSerializer, PreferenceSerializer
+from django.http import Http404
 
-# Create your views here.
 
 
 @api_view(['GET'])
@@ -71,9 +71,17 @@ def createMeeting(request, cid):
 
 @api_view(['GET'])
 def getMeeting(request, cid, mid):
-    meeting = get_object_or_404(Meeting, id=mid)
+    try:
+        calendar = Calendar.objects.get(id=cid)
+        meeting = calendar.meetings.get(id=mid)
+    except Calendar.DoesNotExist:
+        raise Http404("Calendar does not exist")
+    except Meeting.DoesNotExist:
+        raise Http404("Meeting does not exist")
+
     serializer = MeetingSerializer(meeting)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def getAllMeetingCal(request, cid):
@@ -86,3 +94,18 @@ def getAllMeetingCal(request, cid):
     # Serialize the meetings and return the response
     serializer = MeetingSerializer(meetings, many=True)
     return Response(serializer.data)
+
+@api_view(['PUT'])
+def editMeeting(request, cid, mid):
+    try:
+        calendar = Calendar.objects.get(id=cid)
+        meeting = calendar.meetings.get(id=mid)
+    except Calendar.DoesNotExist:
+        raise Http404("Calendar does not exist")
+    except Meeting.DoesNotExist:
+        raise Http404("Meeting does not exist")
+    serializer = MeetingSerializer(meeting, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
