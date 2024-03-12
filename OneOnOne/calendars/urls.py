@@ -21,22 +21,23 @@ urlpatterns = [
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     # path('calendars/<int:cid>/meetings/all',
     #      view=views, name='calendar_meeting_all'),
-    # path('calendars/<int:cid>/preferences/date',
-    #      view=views, name='calendarsPreferencesDate'),
+    
     # path('calendars/<int:cid>/meeting/create',
     #      view=views, name="meetingCreate"),
     # path('calendars/<int:cid>/meeting/<int:mid>/edit',
     #      view=views, name="meetingEdit"),
     # path('calendars/<int:cid>/meeting/<int:mid>',
     #      view=views, name="meetingViewID"),
-    # path('calendars/<int:cid>/preference/create',
-    #      view=views, name="preferenceCreate"),
-    # path('calendars/<int:cid>/preference/<int:pid>/edit',
-    #      view=views, name="preferenceEdit"),
-    # path('calendars/<int:cid>/preference/<int:pid>',
-    #      view=views, name="preferenceViewID"),
+    # get all preferences in one date
+    path('calendars/<int:cid>/preferences/<str:date>',
+         view=views.calendarsPreferencesDate, name='getPreferencesDate'),
+    path('calendars/<int:cid>/preference/create',
+          view=views.createPreference, name="preferenceCreate"),
+    path('calendars/<int:cid>/preference/<int:pid>/edit',
+         view=views.editPreference, name="preferenceEdit"),
+    path('calendars/<int:cid>/preference/<int:pid>',
+         view=views.preferenceViewID, name="preferenceViewID"),
     
-
      path('calendars/<int:cid>/meeting/create',
          view=views.createMeeting, name="meetingCreate"),
     

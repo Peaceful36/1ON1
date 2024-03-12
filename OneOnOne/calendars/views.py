@@ -155,7 +155,75 @@ def editMeeting(request, cid, mid):
         serializer = MeetingSerializer(meeting, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK)        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+
+@api_view(['POST'])
+def createPreference(request, cid):
+    jwtAuth = JWTAuthentication()
+    isAuthenticated = jwtAuth.authenticate(request)
+    if not isAuthenticated:
+        return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
+    calendar = get_object_or_404(Calendar, id=cid)
+    request.data['calendar'] = calendar.id
+    serializer = PreferenceSerializer(data=request.data)
+    if serializer.is_valid():
+        preference = serializer.save()
+        calendar.preferences.add(preference)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT'])
+def editPreference(request, cid, pid):
+    jwtAuth = JWTAuthentication()
+    isAuthenticated = jwtAuth.authenticate(request)
+    if not isAuthenticated:
+        return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
+    try:
+        calendar = Calendar.objects.get(id=cid)
+        preference = calendar.preferences.get(id=pid)
+    except Calendar.DoesNotExist:
+        raise Http404("Calendar does not exist")
+    serializer = PreferenceSerializer(preference, data=request.data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def preferenceViewID(request, cid, pid):
+    jwtAuth = JWTAuthentication()
+    isAuthenticated = jwtAuth.authenticate(request)
+    if not isAuthenticated:
+        return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
+    if not request.user.is_authenticated:
+        return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
+    try:
+        calendar = Calendar.objects.get(id=cid) 
+    except Calendar.DoesNotExist:
+        raise Http404("Calendar does not exist")
+    preference = calendar.preferences.get(id=pid)
+    serializer = PreferenceSerializer(preference)
+    if serializer.is_valid():
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def calendarsPreferencesDate(request, cid):
+    jwtAuth = JWTAuthentication()
+    isAuthenticated = jwtAuth.authenticate(request)
+    if not isAuthenticated:
+        return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
+    if not request.user.is_authenticated:
+        return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
+    try:
+        calendar = Calendar.objects.get(id=cid)
+    except Calendar.DoesNotExist:
+        raise Http404("Calendar does not exist")
+    date = request.GET.get('date')
+    preferences = calendar.preferences.filter(date=date)
+    serializer = PreferenceSerializer(preferences, many=True)
+    if serializer.is_valid():
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
