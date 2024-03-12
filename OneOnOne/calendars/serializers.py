@@ -13,10 +13,10 @@ class CalendarSerializer(ModelSerializer):
 class MeetingSerializer(ModelSerializer):
     class Meta:
         model = Meeting
-        fields = ['user ', 'date', 'start_time', 'end_time', 'priority']
+        fields = ['user', 'date', 'start_time', 'end_time', 'priority']
 
 
 class PreferenceSerializer(ModelSerializer):
     class Meta:
         model = Preference
-        fields = ['user ', 'date', 'start_time', 'end_time', 'priority']
+        fields = ['user', 'date', 'start_time', 'end_time', 'priority']
