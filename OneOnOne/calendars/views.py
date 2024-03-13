@@ -49,6 +49,8 @@ def getOneCalendar(request, cid):
         requestUser = isAuthenticated[0]
         calendar = Calendar.objects.filter(
             id=cid, participants=requestUser).first()
+        if not calendar:
+            return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = CalendarSerializer(calendar)
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
@@ -61,6 +63,8 @@ def editCalendar(request, cid):
         requestUser = isAuthenticated[0]
         calendar = Calendar.objects.filter(
             id=cid, participants=requestUser).first()
+        if not calendar:
+            return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = CalendarSerializer(
             calendar, data=request.data, partial=True)
         if serializer.is_valid():
@@ -70,18 +74,42 @@ def editCalendar(request, cid):
     return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-@api_view(['GET'])
-def getPreferences(request, cid):
-    isAuthenticated = jwtAuth.authenticate(request)
-    if isAuthenticated:
-        requestUser = isAuthenticated[0]
-        calendar = Calendar.objects.filter(
-            id=cid, participants=requestUser).first()
-        if calendar:
-            serializer = PreferenceSerializer(calendar.preferences, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+# @api_view(['POST'])
+# def calendarAddMeeting(request, cid):
+#     isAuthenticated = jwtAuth.authenticate(request)
+#     if isAuthenticated:
+#         requestUser = isAuthenticated[0]
+#         calendar = Calendar.objects.filter(
+#             id=cid, participants=requestUser).first()
+#         if not calendar:
+#             return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
+#         meeting_serializer = MeetingSerializer(data=request.data)
+#         if meeting_serializer.is_valid():
+#             meeting = meeting_serializer.save()
+#             calendar.meetings.add(meeting)
+#             calendar_serializer = CalendarSerializer(calendar)
+#             return Response(calendar_serializer.data, status=status.HTTP_200_OK)
+#         return Response(calendar_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+# @api_view(['POST'])
+# def calendarAddPreference(request, cid):
+#     isAuthenticated = jwtAuth.authenticate(request)
+#     if isAuthenticated:
+#         requestUser = isAuthenticated[0]
+#         calendar = Calendar.objects.filter(
+#             id=cid, participants=requestUser).first()
+#         if not calendar:
+#             return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
+#         preference_serializer = PreferenceSerializer(data=request.data)
+#         if preference_serializer.is_valid():
+#             preference = preference_serializer.save()
+#             calendar.meetings.add(preference)
+#             calendar_serializer = CalendarSerializer(calendar)
+#             return Response(calendar_serializer.data, status=status.HTTP_200_OK)
+#         return Response(preference_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(['POST'])
@@ -140,7 +168,6 @@ def getAllMeetingCal(request, cid):
     return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-
 @api_view(['PUT'])
 def editMeeting(request, cid, mid):
     isAuthenticated = jwtAuth.authenticate(request)
@@ -152,11 +179,27 @@ def editMeeting(request, cid, mid):
             raise Http404("Calendar does not exist")
         except Meeting.DoesNotExist:
             raise Http404("Meeting does not exist")
-        serializer = MeetingSerializer(meeting, data=request.data, partial=True)
+        serializer = MeetingSerializer(
+            meeting, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)        
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def getPreferences(request, cid):
+    isAuthenticated = jwtAuth.authenticate(request)
+    if isAuthenticated:
+        requestUser = isAuthenticated[0]
+        calendar = Calendar.objects.filter(
+            id=cid, participants=requestUser).first()
+        if calendar:
+            serializer = PreferenceSerializer(calendar.preferences, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+
 
 @api_view(['POST'])
 def createPreference(request, cid):
@@ -173,6 +216,7 @@ def createPreference(request, cid):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['PUT'])
 def editPreference(request, cid, pid):
     jwtAuth = JWTAuthentication()
@@ -186,11 +230,13 @@ def editPreference(request, cid, pid):
         raise Http404("Calendar does not exist")
     except Preference.DoesNotExist:
         raise Http404("Preference does not exist")
-    serializer = PreferenceSerializer(preference, data=request.data, partial=True)
+    serializer = PreferenceSerializer(
+        preference, data=request.data, partial=True)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET'])
 def preferenceViewID(request, cid, pid):
@@ -201,7 +247,7 @@ def preferenceViewID(request, cid, pid):
     if not request.user.is_authenticated:
         return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
     try:
-        calendar = Calendar.objects.get(id=cid) 
+        calendar = Calendar.objects.get(id=cid)
     except Calendar.DoesNotExist:
         raise Http404("Calendar does not exist")
     preference = calendar.preferences.get(id=pid)
@@ -209,6 +255,7 @@ def preferenceViewID(request, cid, pid):
     if serializer.is_valid():
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET'])
 def calendarsPreferencesDate(request, cid):
@@ -228,4 +275,3 @@ def calendarsPreferencesDate(request, cid):
     if serializer.is_valid():
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
