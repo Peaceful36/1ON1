@@ -12,31 +12,26 @@ urlpatterns = [
     path('calendars/create/', view=views.createCalendar, name='createCalendar'),
     path('calendars/<int:cid>/edit/',
          view=views.editCalendar, name='editCalendar'),
-    path('calendars/<int:cid>/preferences',
-         view=views.getPreferences, name='getPreferences'),
+    path('calendars/<int:cid>/delete/',
+         view=views.deleteCalendar, name='deleteCalendar'),
 
-#     Temp paths
-     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    #     Temp paths
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
     # Meeting
+
     path('calendars/<int:cid>/meetings/all/',
          view=views.getAllMeetingCal, name='calendar_meeting_all'),
-    path('calendars/<int:cid>/meeting/create/',
-         view=views.createMeeting, name="meetingCreate"),
-    path('calendars/<int:cid>/meeting/<int:mid>/',
-         view=views.getMeeting, name="meetingViewID"),
-    path('calendars/<int:cid>/meetings/all/',
-         view=views.getAllMeetingCal, name='calendar_meeting_all'),
-    path('calendars/<int:cid>/meeting/<int:mid>/edit/',
-         view=views.editMeeting, name="meetingEdit"),
     path('calendars/<int:cid>/meeting/create/',
          view=views.createMeeting, name="meetingCreate"),
     path('calendars/<int:cid>/meeting/<int:mid>/edit/',
          view=views.editMeeting, name="meetingEdit"),
     path('calendars/<int:cid>/meeting/<int:mid>/',
-         view=views.getMeeting, name="meetingViewID"),
+         view=views.getMeeting, name="getMeeting"),
+    path('calendars/<int:cid>/meeting/<int:mid>/delete/',
+         view=views.deleteMeeting, name="deleteMeeting"),
 
     # Preference Endpoints
     path('calendars/<int:cid>/preferences/all/',
@@ -49,17 +44,6 @@ urlpatterns = [
          view=views.editPreference, name="preferenceEdit"),
     path('calendars/<int:cid>/preference/<int:pid>/',
          view=views.preferenceViewID, name="preferenceViewID"),
-
-    path('calendars/<int:cid>/meeting/create',
-         view=views.createMeeting, name="meetingCreate"),
-
-    path('calendars/<int:cid>/meeting/<int:mid>',
-         view=views.getMeeting, name="meetingViewID"),
-    path('calendars/<int:cid>/meetings/all',
-         view=views.getAllMeetingCal, name='calendar_meeting_all'),
-
-    path('calendars/<int:cid>/meeting/<int:mid>/edit',
-         view=views.editMeeting, name="meetingEdit"),
-
-
+    path('calendars/<int:cid>/preference/<int:pid>/delete/',
+         view=views.deletePreference, name="deletePreference"),
 ]

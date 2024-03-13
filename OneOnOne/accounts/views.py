@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django.core.mail import send_mail, EmailMessage
 from django.shortcuts import render
 from rest_framework import status
@@ -25,6 +26,11 @@ class login_view(APIView):
             if user:
                 login(request, user)
                 refresh = RefreshToken.for_user(user)
+
+                if user.is_superuser:
+                    refresh.access_token.set_exp(
+                        lifetime=timedelta(minutes=60))
+
                 response_data = {
                     'refresh': str(refresh),
                     'access': str(refresh.access_token),
