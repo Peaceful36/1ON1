@@ -95,7 +95,7 @@ def createMeeting(request, cid):
     if isAuthenticated:
         calendar = get_object_or_404(Calendar, id=cid)
         request.data['calendar'] = calendar.id
-        request.data['participants'] = [request.user.id]
+        request.data['user'] = [request.user.id]
         serializer = MeetingSerializer(
             data=request.data, context={'request': request})
         if serializer.is_valid():
