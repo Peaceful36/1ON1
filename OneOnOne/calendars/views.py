@@ -32,8 +32,9 @@ def createCalendar(request):
     if isAuthenticated:
         # Request User
         requestUser = isAuthenticated[0]
+        
         request.data['participants'] = [
-            requestUser.id] + request.data['participants']
+            requestUser.id] + request.data.get("participants", [])
         serializer = CalendarSerializer(
             data=request.data)
         if serializer.is_valid():
@@ -86,7 +87,14 @@ def createMeeting(request, cid):
         if not calendar:
             return Response({"error": "Calendar not found"}, status=status.HTTP_404_NOT_FOUND)
         request.data['calendar'] = calendar.id
-        request.data['user'] = [request.user.id] + request.data['user']
+        request.data['user'] = [request.user.id] + request.data.get("user", [])
+        
+        for usert in request.data['user']:
+            # print(usert, calendar.participants.all(), calendar.participants.filter(id=usert))
+            if not calendar.participants.filter(id=usert):
+                return Response({"error": "User not in Calendar"}, status=status.HTTP_404_NOT_FOUND)
+                
+
         serializer = MeetingSerializer(
             data=request.data, context={'request': request})
         if serializer.is_valid():
@@ -130,7 +138,12 @@ def getAllMeetingCal(request, cid):
             return Response({"error": "Calendar not found"}, status=status.HTTP_404_NOT_FOUND)
 
         # Retrieve all meetings associated with the calendar
-        meetings = calendar.meetings.all()
+        meetings = calendar.meetings.filter(user=requestUser)
+
+        if not meetings:
+            return Response({"error": "User not found in Meeting"}, status=status.HTTP_404_NOT_FOUND)
+    
+                
 
         # Serialize the meetings and return the response
         serializer = MeetingSerializer(meetings, many=True)
@@ -151,6 +164,14 @@ def editMeeting(request, cid, mid):
             meeting = calendar.meetings.get(id=mid)
         except:
             return Response({"error": "Meeting not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        request.data['user'] = [request.user.id] + request.data.get("user", [])
+        
+        for usert in request.data['user']:
+            # print(usert, calendar.participants.all(), calendar.participants.filter(id=usert))
+            if not calendar.participants.filter(id=usert):
+                return Response({"error": "User not in Calendar"}, status=status.HTTP_404_NOT_FOUND)
+            
         serializer = MeetingSerializer(
             meeting, data=request.data, partial=True)
         if serializer.is_valid():

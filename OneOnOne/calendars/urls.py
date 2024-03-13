@@ -7,7 +7,7 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
-    path('calendars/all/all/', view=views.getCalendars, name='getCalendars'),
+    path('calendars/all/', view=views.getCalendars, name='getCalendars'),
     path('calendars/<int:cid>/', view=views.getOneCalendar, name='getOneCalendar'),
     path('calendars/create/', view=views.createCalendar, name='createCalendar'),
     path('calendars/<int:cid>/edit/',
@@ -15,10 +15,10 @@ urlpatterns = [
     path('calendars/<int:cid>/preferences',
          view=views.getPreferences, name='getPreferences'),
 
-    # Temp paths
-    #     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    #     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    #     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+#     Temp paths
+     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
     # Meeting
     path('calendars/<int:cid>/meetings/all/',
