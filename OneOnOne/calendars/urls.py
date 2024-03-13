@@ -12,10 +12,6 @@ urlpatterns = [
     path('calendars/create/', view=views.createCalendar, name='createCalendar'),
     path('calendars/<int:cid>/edit/',
          view=views.editCalendar, name='editCalendar'),
-    #     path('calendars/<int:cid>/add/preference',
-    #          view=views.calendarAddPreference, name='calendarAddPreference'),
-    #     path('calendars/<int:cid>/add/meeting',
-    #          view=views.calendarAddMeeting, name='calendarAddMeeting'),
 
     # Temp paths
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

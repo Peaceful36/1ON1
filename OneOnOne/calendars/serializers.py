@@ -15,7 +15,8 @@ class MeetingSerializer(ModelSerializer):
 
     class Meta:
         model = Meeting
-        fields = ['user', 'title', 'date', 'start_time', 'end_time', 'priority']
+        fields = ['user', 'title', 'date',
+                  'start_time', 'end_time', 'priority']
 
 
 class PreferenceSerializer(ModelSerializer):
