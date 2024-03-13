@@ -23,7 +23,7 @@ class Preference(models.Model):
 
 
 class Meeting(models.Model):
-    participants = models.ManyToManyField(User)
+    user = models.ManyToManyField(User)
     # calendar = models.ForeignKey(Calendar, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     date = models.DateField()
