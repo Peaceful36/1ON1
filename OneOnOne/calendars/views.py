@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from rest_framework.response import Response
@@ -244,8 +244,6 @@ def preferenceViewID(request, cid, pid):
     isAuthenticated = jwtAuth.authenticate(request)
     if not isAuthenticated:
         return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
-    if not request.user.is_authenticated:
-        return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
     try:
         calendar = Calendar.objects.get(id=cid)
     except Calendar.DoesNotExist:
@@ -262,8 +260,6 @@ def calendarsPreferencesDate(request, cid):
     jwtAuth = JWTAuthentication()
     isAuthenticated = jwtAuth.authenticate(request)
     if not isAuthenticated:
-        return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
-    if not request.user.is_authenticated:
         return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
     try:
         calendar = Calendar.objects.get(id=cid)
