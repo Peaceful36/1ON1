@@ -198,7 +198,9 @@ def deleteMeeting(request, cid, mid):
             id=cid, participants=requestUser).first()
         if not calendar:
             return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
-        meeting = calendar.meetings.get_object_or_404(id=mid)
+        meeting = calendar.meetings.filter(user=requestUser, id=mid).first()
+        if not meeting:
+            return Response({"error": "Meeting Not Found"}, status=status.HTTP_404_NOT_FOUND)
         meeting.delete()
         return Response({}, status=status.HTTP_200_OK)
     return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
@@ -306,7 +308,9 @@ def deletePreference(request, cid, pid):
             id=cid, participants=requestUser).first()
         if not calendar:
             return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
-        preference = calendar.preferences.get_object_or_404(id=pid)
+        preference = calendar.preferences.filter(id=pid, user=requestUser)
+        if not preference:
+            return Response({"error": "Preference Not Found"}, status=status.HTTP_404_NOT_FOUND)
         preference.delete()
         return Response({}, status=status.HTTP_200_OK)
     return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
