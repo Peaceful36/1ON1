@@ -164,7 +164,10 @@ def createPreference(request, cid):
     isAuthenticated = jwtAuth.authenticate(request)
     if not isAuthenticated:
         return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
-    calendar = get_object_or_404(Calendar, id=cid)
+    current_user = isAuthenticated[0]
+    calendar = get_object_or_404(Calendar, id=cid, participants=current_user)
+    if not calendar:
+        return Response({'error': 'Calendar does not exist'}, status=status.HTTP_404_NOT_FOUND)
     request.data['calendar'] = calendar.id
     serializer = PreferenceSerializer(data=request.data)
     if serializer.is_valid():
@@ -180,7 +183,8 @@ def editPreference(request, cid, pid):
     if not isAuthenticated:
         return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
     try:
-        calendar = Calendar.objects.get(id=cid)
+        currnet_user = isAuthenticated[0]
+        calendar = Calendar.objects.get(id=cid, participants=currnet_user)       
         preference = calendar.preferences.get(id=pid)
     except Calendar.DoesNotExist:
         raise Http404("Calendar does not exist")
@@ -199,7 +203,7 @@ def preferenceViewID(request, cid, pid):
     if not isAuthenticated:
         return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
     try:
-        calendar = Calendar.objects.get(id=cid) 
+        calendar = Calendar.objects.get(id=cid, participants=isAuthenticated[0]) 
     except Calendar.DoesNotExist:
         raise Http404("Calendar does not exist")
     preference = calendar.preferences.get(id=pid)
@@ -215,7 +219,7 @@ def calendarsPreferencesDate(request, cid):
     if not isAuthenticated:
         return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
     try:
-        calendar = Calendar.objects.get(id=cid)
+        calendar = Calendar.objects.get(id=cid, participants=isAuthenticated[0])
     except Calendar.DoesNotExist:
         raise Http404("Calendar does not exist")
     date = request.GET.get('date')
