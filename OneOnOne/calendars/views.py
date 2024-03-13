@@ -32,7 +32,8 @@ def createCalendar(request):
     if isAuthenticated:
         # Request User
         requestUser = isAuthenticated[0]
-        request.data['participants'] = [requestUser]
+        request.data['participants'] = [
+            requestUser.id] + request.data['participants']
         serializer = CalendarSerializer(
             data=request.data)
         if serializer.is_valid():
@@ -82,7 +83,11 @@ def createMeeting(request, cid):
     # Get the calendar instance or return 404 if it does not exist
     isAuthenticated = jwtAuth.authenticate(request)
     if isAuthenticated:
-        calendar = get_object_or_404(Calendar, id=cid)
+        requestUser = isAuthenticated[0]
+        calendar = Calendar.objects.filter(
+            id=cid, participants=requestUser).first()
+        if not calendar:
+            return Response({"error": "Calendar not found"}, status=status.HTTP_404_NOT_FOUND)
         request.data['calendar'] = calendar.id
         request.data['user'] = [request.user.id]
         serializer = MeetingSerializer(
@@ -100,13 +105,12 @@ def createMeeting(request, cid):
 def getMeeting(request, cid, mid):
     isAuthenticated = jwtAuth.authenticate(request)
     if isAuthenticated:
-        try:
-            calendar = Calendar.objects.get(id=cid)
-            meeting = calendar.meetings.get(id=mid)
-        except Calendar.DoesNotExist:
-            raise Http404("Calendar does not exist")
-        except Meeting.DoesNotExist:
-            raise Http404("Meeting does not exist")
+        requestUser = isAuthenticated[0]
+        calendar = Calendar.objects.filter(
+            id=cid, participants=requestUser).first()
+        if not calendar:
+            return Response({"error": "Calendar not found"}, status=status.HTTP_404_NOT_FOUND)
+        meeting = calendar.meetings.get(id=mid)
 
         serializer = MeetingSerializer(meeting)
         return Response(serializer.data)
