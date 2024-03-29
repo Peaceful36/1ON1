@@ -216,7 +216,7 @@ def getPreferences(request, cid):
         if calendar:
             serializer = PreferenceSerializer(calendar.preferences, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'Calendar does not exist'}, status=status.HTTP_404_NOT_FOUND)
     return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
