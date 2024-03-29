@@ -1,11 +1,23 @@
-import './App.css';
-import HomePage from './HomePage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React from 'react';
+import HomePage from './pages/HomePage';
+import Contact from './pages/Contact';
+import Calendars from './pages/Calendars';
+import Login from './pages/Login'; 
+import Register from './pages/Register';
 
-export default function App() {
+function App() {
   return (
-    <h1 className="t">
-      Hello world!
-    </h1>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<HomePage />} />
+        <Route path="/calendar" element={<Calendars />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
+export default App;
