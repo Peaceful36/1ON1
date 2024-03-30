@@ -1,8 +1,14 @@
-import React from 'react'
+
+import * as React from 'react';
+import Navbar from './Navbar';
+
 
 function Calendars() {
+
   return (
-    <div>Calendars</div>
+    <div >
+      
+    </div>
   )
 }
 
