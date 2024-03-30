@@ -5,6 +5,8 @@ import Contact from './pages/Contact';
 import Calendars from './pages/Calendars';
 import Login from './pages/Login'; 
 import Register from './pages/Register';
+import AddContact from './pages/AddContact';
+import EditContact from './pages/EditContact';
 
 function App() {
   return (
@@ -15,6 +17,9 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/editcontact" element={<EditContact />} />
+        <Route path="/addcontact" element={<AddContact />} />
+
       </Routes>
     </BrowserRouter>
   );
