@@ -1,4 +1,4 @@
-from calendars.models import Calendar, Meeting, Preference
+from calendars.models import Calendar, Invitee, Preference
 from django.contrib.auth.models import User
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
@@ -7,19 +7,18 @@ from rest_framework import serializers
 class CalendarSerializer(ModelSerializer):
     class Meta:
         model = Calendar
-        fields = ['title', 'description',
-                  'participants', 'preferences', 'meetings']
-
-
-class MeetingSerializer(ModelSerializer):
-
-    class Meta:
-        model = Meeting
-        fields = ['user', 'title', 'date',
-                  'start_time', 'end_time', 'priority']
+        fields = ['id', 'owner', 'title', 'description',
+                  'start_date', 'end_date', 'participants', 'preferences', ]
 
 
 class PreferenceSerializer(ModelSerializer):
     class Meta:
         model = Preference
-        fields = ['user', 'date', 'start_time', 'end_time', 'priority']
+        fields = ['id', 'user', 'date', 'start_time',
+                  'end_time', 'priority']
+
+
+class InviteeSerializer(ModelSerializer):
+    class Meta:
+        model = Invitee
+        fields = ['id', 'inviter', 'invitee', 'status']

@@ -22,26 +22,30 @@ class Preference(models.Model):
     )
 
 
-class Meeting(models.Model):
-    user = models.ManyToManyField(User)
-    # calendar = models.ForeignKey(Calendar, on_delete=models.CASCADE)
-    title = models.CharField(max_length=50)
-    date = models.DateField()
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
-    priority = models.CharField(
+class StatusChoices(models.TextChoices):
+    NO = "Not Accepted",
+    YES = "Accepted",
+
+
+class Invitee(models.Model):
+    inviter = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="invitationOwner")
+    invitee = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="invitationTo")
+    status = models.CharField(
         max_length=50,
-        choices=PriorityChoices,
-        default=PriorityChoices.NONE,
-        blank=True
+        choices=StatusChoices,
+        default=StatusChoices.NO,
     )
 
 
 class Calendar(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=250, blank=True)
-    participants = models.ManyToManyField(User)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    participants = models.ManyToManyField(
+        Invitee, related_name="invitees", blank=True)
     preferences = models.ManyToManyField(
         Preference, blank=True)
-    meetings = models.ManyToManyField(
-        Meeting, blank=True)
