@@ -1,10 +1,9 @@
 import React from 'react'
-import Navbar from './Navbar'
 
 function Calendars() {
   return (
-    <div>Calendar</div>
-  );
+    <div>Calendars</div>
+  )
 }
 
 export default Calendars
