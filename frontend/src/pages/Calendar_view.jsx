@@ -16,7 +16,7 @@ function Calendar_view() {
       </div>
 
       <div className="flex flex-col md:flex-row">
-        <div id="contact" className="text-white font-staatliches mt-11 ml-4 md:h-full bg-black border-none list-square text-left">
+        <div id="contact" className="text-white font-staatliches mt-11 ml-4 md:h-full border-none list-square text-left">
           <h1 className="text-5xl ml-0 sm:text-center">PEOPLE</h1>
           <ul className="custom-list text-2xl mt-3 ml-8">
             <div className="ml-5 mb-5">Inaam</div>
@@ -32,18 +32,24 @@ function Calendar_view() {
            
           <StaticDateTimePicker
             sx = { (theme) => ({
-                // [theme.breakpoints.down('lg')]: {
-                //   width: 800
-                // },
-                
+              [`.${pickersLayoutClasses.contentWrapper}`]: {
+                ":focus" : {
+                  outline: "none"
+                }
+              },
                 [theme.breakpoints.down('lg')]: {
-                  width: 420,
-                  ml: 0
+                  width: 400,
+                  ml: 1,
+                  borderRadius: 3
                 },
+
+                
                 width: 900,
                 height: 600,
                 fontSize: 20,
-                ml: 5
+                
+                ml: 5,
+                borderRadius: 3
               })
             }
            />
