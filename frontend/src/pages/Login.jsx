@@ -1,6 +1,42 @@
 import Navbar from "./Navbar";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
+import { useAuth } from '../helper/AuthProvider';
 
 export default function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const auth = useAuth();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    await auth.loginAction({'username':username, 'password':password})
+    navigate("/")
+    console.log(auth.user,auth.token)
+    // fetch("http://127.0.0.1:8000/accounts/login/", {
+    //   method:'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body:JSON.stringify({'username':username, 'password':password})
+    // })
+    // .then(response => {
+    //   if (response.ok) {
+    //     navigate("/");
+    //     return;
+    //   } else {
+    //     return response.json().then(data => {
+    //       throw new Error(data.detail || "Invalid credentials");
+    //     });
+    //   }
+    // })
+    // .catch(error => {
+    //   console.error("Login error:", error.message);
+    //   setError(error.message);
+    // });
+  };
     return (
       <>
         <Navbar />
@@ -17,19 +53,20 @@ export default function Login() {
           </div>
   
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" action="#" onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="email" className="block text-2xl font-medium leading-6 text-white font-staatliches">
-                  Email address
+              <label htmlFor="email" className="block text-2xl font-medium leading-6 text-white font-staatliches">
+                  Username
                 </label>
                 <div className="mt-2">
                   <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    id="uname"
+                    name="username"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="px-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -46,12 +83,16 @@ export default function Login() {
                     name="password"
                     type="password"
                     autoComplete="current-password"
+                    onChange={(e)=>setPassword(e.target.value)}
+                    value={password}
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="px-4 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
   
+              {error && <p className="text-red-500 text-sm">{error}</p>}
+
               <div>
                 <button
                   type="submit"
