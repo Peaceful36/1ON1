@@ -7,8 +7,10 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import AddContact from './pages/AddContact';
 import EditContact from './pages/EditContact';
+import Calendar_view from './pages/Calendar_view';
 
-function App() {
+
+function App(children) {
   return (
     <BrowserRouter>
       <Routes>
@@ -19,6 +21,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/editcontact" element={<EditContact />} />
         <Route path="/addcontact" element={<AddContact />} />
+        <Route path="/calendar_view" element={<Calendar_view />} />
 
       </Routes>
     </BrowserRouter>
