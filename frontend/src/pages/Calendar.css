@@ -1,0 +1,26 @@
+.rbc-header {
+    color: rgb(220 38 38);
+    font-size: 14px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px !important;
+    background: black;
+}
+
+.rbc-allday-cell {
+    display: none;
+  }
+  
+  .rbc-time-header-cell .rbc-today {
+    background-color: #04aa6d !important;
+  }
+  
+  .rbc-time-slot {
+    color: #74a4c3;
+    z-index: 1;
+  }
+  
+  .rbc-time-slot:not(.rbc-today .rbc-time-slot) {
+    background-color: #eff4f7;
+  }
