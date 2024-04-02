@@ -10,8 +10,10 @@ import EditContact from "./pages/EditContact";
 
 import AuthProvider from "./helper/AuthProvider";
 import ProtectedRoute from "./helper/ProtectedRoute";
+import Calendar_view from './pages/Calendar_view';
 
-function App() {
+
+function App(children) {
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -24,6 +26,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/editcontact" element={<EditContact />} />
             <Route path="/addcontact" element={<AddContact />} />
+            <Route path="/calendar_view" element={<Calendar_view />} />
           </Route>
         </Routes>
       </BrowserRouter>
