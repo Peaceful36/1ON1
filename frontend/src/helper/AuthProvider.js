@@ -1,13 +1,15 @@
 import { useContext, createContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(localStorage.getItem("user") || null);
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [user, setUser] = useState(Cookies.get("user") || null);
+  const [token, setToken] = useState(Cookies.get("token") || "");
   const [error, setError] = useState("");
-  //   const navigate = useNavigate();
+
+  const now = new Date();
+  const expires = new Date(now.getTime() + 3600 * 1000);
 
   const loginAction = async (data) => {
     try {
@@ -21,7 +23,7 @@ const AuthProvider = ({ children }) => {
       const res = await response.json();
       if (res.access) {
         setToken(res.access);
-        localStorage.setItem("token", res.access);
+        Cookies.set("token", res.access, { expires });
         let headers = {
           "Content-Type": "application/json",
           Authorization: `Bearer ${res.access}`,
@@ -33,8 +35,8 @@ const AuthProvider = ({ children }) => {
         );
         const res2 = await response2.json();
         if (res2.id) {
-          setUser(JSON.stringify(res2));
-          localStorage.setItem("user", JSON.stringify(res2));
+          setUser(JSON.stringify(res2), { expires });
+          Cookies.set("user", JSON.stringify(res2));
         } else {
           throw new Error(res2.message);
         }
