@@ -56,7 +56,7 @@ function Calendar_view() {
           <div>
             <Calendar
               localizer={localizer}
-              events={myEventsList}
+              // events={myEventsList}
               startAccessor="start"
               endAccessor="end"
               style={{ height: 500 }}
