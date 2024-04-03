@@ -6,38 +6,58 @@ import { useParams } from "react-router-dom";
 
 
 function Contact() {
-
   const [contacts, setContacts] = useState([]);
   const [error, setError] = useState(null);
   const { id } = useParams();
   const { token } = useAuth();
 
-  useEffect(() => {
-    const fetchContacts = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:8000/accounts/get-contacts/', {
+  const fetchContacts = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/accounts/get-contacts/', {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        });
+      });
 
-        console.log(response);
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch contacts');
-        }
-
-        const data = await response.json();
-        console.log(data);
-        setContacts(data.contacts);
-      } catch (error) {
-        setError(error.message);
+      if (!response.ok) {
+        throw new Error('Failed to fetch contacts');
       }
-    };
 
+      const data = await response.json();
+      setContacts(data.contacts);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  useEffect(() => {
     fetchContacts();
   }, []);
+
+  const handleDelete = async (contactId) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/accounts/delete-contact/${contactId}/`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete contact');
+      }
+
+      // Update contacts state after deletion
+      const updatedContacts = contacts.filter(contact => contact.id !== contactId);
+      setContacts(updatedContacts);
+      fetchContacts();
+    } catch (error) {
+      console.error('Error deleting contact:', error.message);
+    }
+  };
+
 
   return (
     <div>
@@ -62,13 +82,12 @@ function Contact() {
                           <p className="font-staatliches text-xl text-gray-500 truncate ">
                               {contact.contact_user_email}
                           </p>
-                          <Link to={{
-                                      pathname: "/editcontact",
-                                      search: `?name=${contact.contact_user_username}&email=${contact.contact_user_email}`,
-                                  }}
-                                  className="font-staatliches text-xl font-medium text-red-600 hover:underline">
-                              Edit
-                          </Link>
+                          <a
+                              className="font-staatliches text-xl font-medium text-red-600 hover:underline"
+                              onClick={() => handleDelete(contact.contact_user)}
+                          >
+                              Delete
+                          </a>
                       </div>
                   </div>
               </li>
