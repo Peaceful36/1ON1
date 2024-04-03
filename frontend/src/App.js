@@ -11,6 +11,7 @@ import EditContact from "./pages/EditContact";
 import AuthProvider from "./helper/AuthProvider";
 import ProtectedRoute from "./helper/ProtectedRoute";
 import Calendar_view from "./pages/Calendar_view";
+import ViewDetails from "./pages/ViewDetails";
 
 function App(children) {
   return (
@@ -26,6 +27,10 @@ function App(children) {
             <Route path="/editcontact" element={<EditContact />} />
             <Route path="/addcontact" element={<AddContact />} />
             <Route path="/calendar_view/:id" element={<Calendar_view />} />
+            <Route
+              path="/calendar_view/:id/viewDetails"
+              element={<ViewDetails />}
+            ></Route>
           </Route>
         </Routes>
       </BrowserRouter>
