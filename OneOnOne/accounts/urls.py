@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from accounts.views import login_view, register_view, logout_view, AddContactView, GetContactsView, GetUserDetailsView, EditUserView, EmailContactsView
+from accounts.views import login_view, register_view, logout_view, AddContactView, GetContactsView, GetUserDetailsView, EditUserView, EmailContactsView, DeleteContactView
 app_name = 'accounts'
 
 urlpatterns = [
@@ -12,4 +12,6 @@ urlpatterns = [
     path('get-user-details/', GetUserDetailsView.as_view(), name='get-user-details'),
     path('edit-user/', EditUserView.as_view(), name='edit-user'),
     path('email-contacts/', EmailContactsView.as_view(), name='email-contacts'),
+    path('delete-contact/<int:contact_id>/', DeleteContactView.as_view(), name='delete-contact'),
+
 ]

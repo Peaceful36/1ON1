@@ -1,12 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
+.rbc-calendar {
+    background: rgb(107 114 128);
+    color: white;
+    font-family: 'Staatliches', sans-serif;
+    
+}
+
 .rbc-header {
-    color: rgb(220 38 38);
+    color: white;
     font-size: 14px !important;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 36px !important;
-    background: black;
+    background: rgb(107 114 128);
+    border: 1px solid;
 }
+
+.rbc-toolbar {
+ 
+    justify-content: center;
+    background-color: rgb(107 114 128);
+    color: white;
+    border-radius: 3px;
+}
+
+.rbc-toolbar button {
+    color: white;
+    background-color: rgb(107 114 128);
+    border: none;
+    
+}
+
+.rbc-month-view {
+    border: none;
+    padding: 0px;
+    background: rgb(156 163 175);
+    color : white;
+}
+
+.rbc-month-view .rbc-today {
+    background-color: #04aa6d !important;
+}
+
+/* .rbc-time-view .rbc-time-gutter .rbc-time-column {
+    background-color: rgb(156 163 175);
+    color: black;
+} */
 
 .rbc-allday-cell {
     display: none;
@@ -21,6 +62,19 @@
     z-index: 1;
   }
   
-  .rbc-time-slot:not(.rbc-today .rbc-time-slot) {
-    background-color: #eff4f7;
+  .rbc-time-view .rbc-time-slot {
+    background-color: rgb(156 163 175);
+    color: white;
+    border: none;
+
   }
+
+.rbc-event, .rbc.background-event {
+    z-index: 2;
+    padding: 0px !important;
+    border: none !important;
+}
+
+.rbc-event-label {
+    display: none !important;
+}

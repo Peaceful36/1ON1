@@ -30,28 +30,28 @@ class RegistrationSerializer(serializers.Serializer):
 
 
 class AddContactSerializer(serializers.Serializer):
-    contact_id = serializers.IntegerField()
-
-    def validate_contact_id(self, value):
-        try:
-            User.objects.get(pk=value)
-        except User.DoesNotExist:
-            raise serializers.ValidationError(
-                "User with this ID does not exist.")
-        return value
+    user = serializers.CharField()  # Assuming 'user' field corresponds to username
+    email = serializers.EmailField()
 
     def create(self, validated_data):
         user = self.context['request'].user
-        username = validated_data['user']
-        email = validated_data['email']
+        username = validated_data.get('user')  # Retrieve username from validated_data
+        email = validated_data.get('email')
 
-        contact_user = User.objects.get(username=username, email=email)
+        # Check if the user exists
+        try:
+            contact_user = User.objects.get(username=username, email=email)
+        except User.DoesNotExist:
+            raise serializers.ValidationError("User with this username and email does not exist.")
 
+        # Check if the contact already exists
         if Contact.objects.filter(user=user, contact_user=contact_user).exists():
             raise serializers.ValidationError("Contact already exists.")
 
+        # Create the contact
         contact = Contact.objects.create(user=user, contact_user=contact_user)
         return contact
+
 
 
 class GetContactsSerializer(serializers.ModelSerializer):
