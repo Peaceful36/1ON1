@@ -1,20 +1,64 @@
-import React from 'react'
+import React,  { useState, useEffect } from 'react'
 import Navbar from './Navbar'
 import { Link } from 'react-router-dom'
+import { useAuth } from "../helper/AuthProvider";
+import { useParams } from "react-router-dom";
 
 
 function Contact() {
-  const data = [
-    {
-      "name" : "nipun",
-      "email" : "nipun@gmail.com"
-    },
-    {
-      "name" : "inaam",
-      "email" : "inaam@gmail.com"
-    }
+  const [contacts, setContacts] = useState([]);
+  const [error, setError] = useState(null);
+  const { id } = useParams();
+  const { token } = useAuth();
 
-  ]
+  const fetchContacts = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/accounts/get-contacts/', {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch contacts');
+      }
+
+      const data = await response.json();
+      setContacts(data.contacts);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchContacts();
+  }, []);
+
+  const handleDelete = async (contactId) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/accounts/delete-contact/${contactId}/`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete contact');
+      }
+
+      // Update contacts state after deletion
+      const updatedContacts = contacts.filter(contact => contact.id !== contactId);
+      setContacts(updatedContacts);
+      fetchContacts();
+    } catch (error) {
+      console.error('Error deleting contact:', error.message);
+    }
+  };
+
+
   return (
     <div>
       <Navbar />
@@ -28,23 +72,22 @@ function Contact() {
         </div>
         <div className='flow-root'>
           <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-          {data.map((contact, index) => (
+          {contacts.map((contact, index) => (
               <li key={index} className="py-3 sm:py-4">
                   <div className="flex items-center">
                       <div className="flex-1 min-w-0 ms-4">
                           <p className="font-staatliches text-2xl font-medium text-black truncate">
-                              {contact.name}
+                              {contact.contact_user_username}
                           </p>
                           <p className="font-staatliches text-xl text-gray-500 truncate ">
-                              {contact.email}
+                              {contact.contact_user_email}
                           </p>
-                          <Link to={{
-                                      pathname: "/editcontact",
-                                      search: `?name=${contact.name}&email=${contact.email}`,
-                                  }}
-                                  className="font-staatliches text-xl font-medium text-red-600 hover:underline">
-                              Edit
-                          </Link>
+                          <a
+                              className="font-staatliches text-xl font-medium text-red-600 hover:underline"
+                              onClick={() => handleDelete(contact.contact_user)}
+                          >
+                              Delete
+                          </a>
                       </div>
                   </div>
               </li>

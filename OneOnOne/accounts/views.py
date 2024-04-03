@@ -72,6 +72,22 @@ class AddContactView(APIView):
             return Response({'detail': 'Contact added successfully.'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class DeleteContactView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, contact_id):
+        try:
+            # Assuming Contact model has a field named 'id' for contact identification
+            contact = Contact.objects.get(contact_user=contact_id, user=request.user)
+            contact.delete()
+            return Response({'detail': 'Contact deleted successfully.'}, status=status.HTTP_204_NO_CONTENT)
+        except Contact.DoesNotExist:
+            return Response({'detail': 'Contact not found.'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class GetContactsView(APIView):
     authentication_classes = [JWTAuthentication]
