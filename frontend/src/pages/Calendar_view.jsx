@@ -6,12 +6,14 @@ import dayjs from "dayjs";
 import "./Calendar.css";
 import { useAuth } from "../helper/AuthProvider";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const localizer = dayjsLocalizer(dayjs);
 
 function Calendar_view() {
   const { id } = useParams();
   const { token } = useAuth();
+  const navigate = useNavigate();
   const handleAutoGen = () => {
     fetch(`http://127.0.0.1:8000/calendars/${id}/generate`, {
       headers: {
@@ -44,7 +46,7 @@ function Calendar_view() {
           </ul>
           <button
             className="login-button w-48 h-12 bg-white rounded-full transform rotate-0.12 text-black font-staatliches font-normal text-3xl leading-12 mt-2"
-            onClick={() => (window.location = "moreDetails.html")}
+            onClick={() => navigate(`/calendar_view/${id}/viewDetails`)}
           >
             MORE DETAILS
           </button>

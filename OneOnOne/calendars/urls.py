@@ -10,6 +10,8 @@ urlpatterns = [
     path('calendars/<int:cid>/edit/',
          view=views.editCalendar, name='editCalendar'),
     path('calendars/<int:cid>/invite/', view=views.inviteUser, name='inviteUser'),
+    path('calendars/<int:cid>/invite/<int:uid>/delete/',
+         view=views.removeInvite, name='removeInvite'),
     path('calendars/<int:cid>/invite/<int:uid>/status/',
          view=views.inviteUserStatus, name='inviteStatus'),
     path('calendars/<int:cid>/delete/',

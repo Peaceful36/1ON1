@@ -14,28 +14,6 @@ export default function Login() {
     event.preventDefault();
     await auth.loginAction({ username: username, password: password });
     navigate("/");
-    console.log(auth.user, auth.token);
-    // fetch("http://127.0.0.1:8000/accounts/login/", {
-    //   method:'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body:JSON.stringify({'username':username, 'password':password})
-    // })
-    // .then(response => {
-    //   if (response.ok) {
-    //     navigate("/");
-    //     return;
-    //   } else {
-    //     return response.json().then(data => {
-    //       throw new Error(data.detail || "Invalid credentials");
-    //     });
-    //   }
-    // })
-    // .catch(error => {
-    //   console.error("Login error:", error.message);
-    //   setError(error.message);
-    // });
   };
   return (
     <>
