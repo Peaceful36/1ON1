@@ -12,6 +12,10 @@ function Calendars() {
   const { id } = useParams();
   const { token } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const calendarsPerPage = 5;
+  const totalPages = Math.ceil(filteredCalendars.length / calendarsPerPage);
 
   const fetchCalendars = async () => {
     try {
@@ -68,6 +72,12 @@ function Calendars() {
     }
   };
 
+  const indexOfLastCalendar = currentPage * calendarsPerPage;
+  const indexOfFirstCalendar = indexOfLastCalendar - calendarsPerPage;
+  const currentCalendars = filteredCalendars.slice(indexOfFirstCalendar, indexOfLastCalendar);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <>
       <Navbar />
@@ -112,7 +122,7 @@ function Calendars() {
                 </div>
               </div>
             </Link>
-            {filteredCalendars.map((cal, index) => (
+            {currentCalendars.map((cal, index) => (
               <div key={index} className="bg-white w-full rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl">
                 <div className="p-6">
                   <div className="pb-2 mb-4 border-b border-stone-200 text-sm font-medium flex justify-between font-staatliches">
@@ -147,8 +157,15 @@ function Calendars() {
           </div>
         </div>
       </div>
+
+      {/* Pagination */}
+      <div className="flex justify-center">
+        {Array.from({ length: totalPages }, (_, i) => (
+          <button key={i} onClick={() => paginate(i + 1)} className="px-3 py-1 m-2 bg-black text-white rounded-md font-staatliches">{i + 1}</button>
+        ))}
+      </div>
     </>
   )
 }
 
-export default Calendars
+export default Calendars;
