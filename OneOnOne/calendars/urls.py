@@ -22,7 +22,7 @@ urlpatterns = [
          view=views.generateSchedule, name="autoGenerate"),
 
     # Preference Endpoints
-    path('calendars/<int:cid>/preferences/all/',
+    path('calendars/<int:cid>/preferences/all/', # todo
          view=views.getPreferences, name='getPreferences'),
     path('calendars/<int:cid>/preferences/<str:date>/',
          view=views.calendarsPreferencesDate, name='getPreferencesDate'),

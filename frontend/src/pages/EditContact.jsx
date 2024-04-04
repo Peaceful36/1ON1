@@ -8,10 +8,6 @@ function EditContact() {
     console.log(location);
     // const contact = location.state?.contact;
     
-
-    // // Assuming you have state variables to store name and email
-    // const [name, setName] = React.useState(contact?.name || '');
-    // const [email, setEmail] = React.useState(contact?.email || '');
     const searchParams = new URLSearchParams(location.search);
     const name = searchParams.get('name') || '';
     const email = searchParams.get('email') || '';

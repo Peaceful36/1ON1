@@ -73,8 +73,32 @@
     z-index: 2;
     padding: 0px !important;
     border: none !important;
+    text-align: center;
+    align-self: center;
+    top: 50%;
+}
+
+.rbc-events-container {
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .rbc-event-label {
     display: none !important;
+}
+
+.rbc-agenda-table tr{
+    display: flex;
+}
+
+.rbc-agenda-content td {
+    width: 33.33%;
+    display: flex;
+    justify-content: center;
+    /* align-items: center;  */
+    background: rgb(156 163 175);
+    color: white;
+    border: none;
+    padding: 0px;
 }
