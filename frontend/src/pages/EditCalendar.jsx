@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 import { useAuth } from "../helper/AuthProvider";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 
 
@@ -102,9 +102,11 @@ function EditCalendar(props) {
                             ></textarea>
                         </div>
                         <div className="flex flex-col sm:flex-row">
-                            <button type="button" onClick={() => false} className="w-full md:w-auto mb-2 md:mb-0 mr-0 md:mr-auto hover:bg-gray-500 rounded-md bg-gray-400 py-3 px-8 text-base text-gray-900 outline-none font-staatliches">
-                                Cancel
-                            </button>
+                            <Link to='/calendar' className="w-full md:w-auto mb-2 md:mb-0 mr-0 md:mr-auto">   
+                                <button type="button" onClick={() => false} className="w-full md:w-auto mb-2 md:mb-0 mr-0 md:mr-auto hover:bg-gray-500 rounded-md bg-gray-400 py-3 px-8 text-base text-gray-900 outline-none font-staatliches">
+                                    Cancel
+                                </button>
+                            </Link>
                             <button type="submit" className="w-full md:w-auto hover:bg-blue-800 rounded-md bg-blue-600 py-3 px-8 text-base text-white outline-none font-staatliches">
                                 Submit
                             </button>
