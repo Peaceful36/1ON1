@@ -20,6 +20,7 @@ class Preference(models.Model):
         choices=PriorityChoices,
         default=PriorityChoices.NONE,
     )
+    calendar_id = models.IntegerField()
 
 
 class StatusChoices(models.TextChoices):
@@ -37,6 +38,7 @@ class Invitee(models.Model):
         choices=StatusChoices,
         default=StatusChoices.NO,
     )
+    calendar_id = models.IntegerField()
 
 
 class Calendar(models.Model):

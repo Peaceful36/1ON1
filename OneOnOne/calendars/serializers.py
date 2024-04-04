@@ -8,17 +8,17 @@ class CalendarSerializer(ModelSerializer):
     class Meta:
         model = Calendar
         fields = ['id', 'owner', 'title', 'description',
-                  'start_date', 'end_date', 'participants', 'preferences' ]
+                  'start_date', 'end_date', 'participants', 'preferences']
 
 
 class PreferenceSerializer(ModelSerializer):
     class Meta:
         model = Preference
         fields = ['id', 'user', 'date', 'start_time',
-                  'end_time', 'priority']
+                  'end_time', 'priority', 'calendar_id']
 
 
 class InviteeSerializer(ModelSerializer):
     class Meta:
         model = Invitee
-        fields = ['id', 'inviter', 'invitee', 'status']
+        fields = ['id', 'inviter', 'invitee', 'status', 'calendar_id']

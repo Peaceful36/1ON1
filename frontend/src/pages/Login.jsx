@@ -6,14 +6,19 @@ import { useAuth } from "../helper/AuthProvider";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errorMsg, setErrorMsg] = useState(null);
   const navigate = useNavigate();
-  const auth = useAuth();
+  const { loginAction } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await auth.loginAction({ username: username, password: password });
-    navigate("/");
+    const error = await loginAction({ username: username, password: password });
+    console.log(error);
+    if (error) {
+      setErrorMsg(error);
+    } else {
+      navigate("/");
+    }
   };
   return (
     <>
@@ -75,7 +80,7 @@ export default function Login() {
               </div>
             </div>
 
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {errorMsg && <p className="text-red-500 text-sm">{errorMsg}</p>}
 
             <div>
               <button
