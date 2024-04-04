@@ -148,20 +148,20 @@ function Calendar_view() {
   return (
     <div>
       <Navbar />
-      <div className="font-staatliches text-6xl leading-8 text-white text-center">
+      <h1 className="font-staatliches text-4xl text-white text-center ml-0 ml-4 sm:text-center text-6xl">
         {calendarData.title}
-      </div>
+      </h1>
 
       <div className="flex flex-col md:flex-row">
         <div
           id="contact"
           className="text-white font-staatliches mt-11 ml-4 md:h-full border-none list-square text-left"
         >
-          <h1 className="text-5xl ml-0 sm:text-center">PEOPLE</h1>
+          <div className="text-3xl ml-0 sm:text-center text-5xl">PEOPLE</div>
 
           <ul className="custom-list text-2xl mt-3 ml-8">
             {participants.map((participant) => (
-              <div key={participant.id} className="ml-5 mb-5">
+              <div key={participant.id} className="sm:ml-5 mb-5">
                 {participant.username}
               </div>
             ))}
@@ -185,17 +185,18 @@ function Calendar_view() {
               startAccessor="start"
               endAccessor="end"
               style={{ height: 500 }}
+              className="text-center"
             />
           </div>
           <button
             onClick={handleAutoGen}
-            className="login-button w-48 h-12 bg-white mb-1 rounded-full transform rotate-0.12 text-black font-staatliches font-normal text-3xl leading-12 mt-2 w-75px h-40px ml-9 sm:w-192px h-48px"
+            className="login-button w-48 h-12 bg-white mb-1 rounded-full transform rotate-0.12 text-black font-staatliches font-normal text-3xl leading-12 mt-2 w-75px h-40px text-center sm:w-192px h-48px"
           >
             AUTO-GENERATE
           </button>
           <button
             onClick={notifyAll}
-            className="login-button w-48 h-12 bg-white mb-1 rounded-full transform rotate-0.12 text-black font-staatliches font-normal text-3xl leading-12 mt-2 w-75px h-40px text-right sm:w-192px h-48px absolute"
+            className="login-button w-48 h-12 bg-white mb-1 rounded-full transform rotate-0.12 text-black font-staatliches font-normal text-3xl leading-12 mt-2 w-75px h-40px text-center sm:w-192px h-48px"
           >
             NOTIFY ALL
           </button>
