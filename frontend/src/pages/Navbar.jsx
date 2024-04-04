@@ -4,8 +4,7 @@ import { useAuth } from "../helper/AuthProvider";
 import Cookies from "js-cookie";
 
 function Navbar({ toggleLinks }) {
-  const { logout } = useAuth();
-  const user = Cookies.get("user");
+  const { user, logout } = useAuth();
 
   return (
     <header className="text-white py-4">
