@@ -151,7 +151,7 @@ export default function ViewDetails() {
 
       {participants &&
         participants.map((user, index) => (
-          <div className="container w-full max-w-sm mx-auto mt-16 bg-white border border-gray-200 rounded-lg shadow">
+          <div className="container w-full max-w-sm mx-auto mt-16 bg-white border border-gray-200 rounded-lg shadow font-staatliches">
             <MoreDetailsUserCard
               cid={id}
               participant={user}
