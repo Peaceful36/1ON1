@@ -105,6 +105,7 @@ function EditCalendar(props) {
                             <Link to='/calendar' className="w-full md:w-auto mb-2 md:mb-0 mr-0 md:mr-auto">   
                                 <button type="button" onClick={() => false} className="w-full md:w-auto mb-2 md:mb-0 mr-0 md:mr-auto hover:bg-gray-500 rounded-md bg-gray-400 py-3 px-8 text-base text-gray-900 outline-none font-staatliches">
                                     Cancel
+                                    
                                 </button>
                             </Link>
                             <button type="submit" className="w-full md:w-auto hover:bg-blue-800 rounded-md bg-blue-600 py-3 px-8 text-base text-white outline-none font-staatliches">
