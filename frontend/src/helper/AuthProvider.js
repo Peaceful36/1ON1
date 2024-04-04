@@ -21,6 +21,10 @@ const AuthProvider = ({ children }) => {
         body: JSON.stringify(data),
       });
       const res = await response.json();
+      if (!response.ok) {
+        setError(res.error);
+        return res.error;
+      }
       if (res.access) {
         setToken(res.access);
         Cookies.set("token", res.access, { expires });
@@ -52,8 +56,8 @@ const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     setToken("");
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    Cookies.remove("token");
+    Cookies.remove("user");
     // navigate("/login");
   };
 

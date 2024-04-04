@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework import status
-from calendars.models import Calendar, Preference
+from calendars.models import Calendar, Preference, Invitee
 from calendars.serializers import CalendarSerializer, PreferenceSerializer, InviteeSerializer
 from accounts.serializers import UserDetailsSerializer
 from django.http import Http404
@@ -14,14 +14,45 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 jwtAuth = JWTAuthentication()
 
 
+def getCalendarsByRequestUser(requestUser):
+    invitees = Invitee.objects.filter(invitee=requestUser)
+    # Extract the ids of calendars where the requestUser is an invitee
+    calendar_ids = invitees.values_list('calendar_id', flat=True)
+    # Get calendars with request user
+    participant_calendars = Calendar.objects.filter(
+        id__in=calendar_ids)
+    owner_calendars = Calendar.objects.filter(owner=requestUser)
+    calendars = participant_calendars | owner_calendars
+    return calendars.distinct()
+
+
+def getOneCalendarByRequestUser(requestUser, cid):
+    invitees = Invitee.objects.filter(invitee=requestUser)
+    # Extract the ids of calendars where the requestUser is an invitee
+    calendar_ids = invitees.values_list('calendar_id', flat=True)
+
+    if cid:
+        owner_calendars = Calendar.objects.filter(
+            id=cid, owner=requestUser).first()
+        if cid in calendar_ids and not owner_calendars:
+            return Calendar.objects.filter(id=cid).first()
+        return owner_calendars
+
+    # Get calendars with request user
+    participant_calendars = Calendar.objects.filter(
+        id__in=calendar_ids).first()
+    owner_calendars = Calendar.objects.filter(owner=requestUser).first()
+    calendar = participant_calendars if participant_calendars else owner_calendars
+    return calendar
+
+
 @api_view(['GET'])
 def getCalendars(request):
     isAuthenticated = jwtAuth.authenticate(request)
     if isAuthenticated:
         # Request User
         requestUser = isAuthenticated[0]
-        # Get calendars with request user
-        calendars = Calendar.objects.filter(owner=requestUser)
+        calendars = getCalendarsByRequestUser(requestUser)
         # Serialize
         serializer = CalendarSerializer(calendars, many=True)
         # Response
@@ -35,7 +66,6 @@ def createCalendar(request):
     if isAuthenticated:
         # Request User
         requestUser = isAuthenticated[0]
-
         request.data['owner'] = requestUser.id
         serializer = CalendarSerializer(
             data=request.data)
@@ -51,8 +81,7 @@ def getOneCalendar(request, cid):
     isAuthenticated = jwtAuth.authenticate(request)
     if isAuthenticated:
         requestUser = isAuthenticated[0]
-        calendar = Calendar.objects.filter(
-            id=cid, owner=requestUser).first()
+        calendar = getOneCalendarByRequestUser(requestUser, cid)
         if not calendar:
             return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = CalendarSerializer(calendar)
@@ -65,8 +94,7 @@ def editCalendar(request, cid):
     isAuthenticated = jwtAuth.authenticate(request)
     if isAuthenticated:
         requestUser = isAuthenticated[0]
-        calendar = Calendar.objects.filter(
-            id=cid, owner=requestUser).first()
+        calendar = getOneCalendarByRequestUser(requestUser)
         if not calendar:
             return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
         serializer = CalendarSerializer(
@@ -97,8 +125,7 @@ def inviteUser(request, cid):
     isAuthenticated = jwtAuth.authenticate(request)
     if isAuthenticated:
         requestUser = isAuthenticated[0]
-        calendar = Calendar.objects.filter(
-            id=cid, owner=requestUser).first()
+        calendar = getOneCalendarByRequestUser(requestUser, cid)
         if not calendar:
             return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -109,6 +136,8 @@ def inviteUser(request, cid):
             return Response(inviteeSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         request.data["inviter"] = requestUser.id
+        request.data["calendar_id"] = cid
+
         inviteeSerializer = InviteeSerializer(data=request.data)
         if inviteeSerializer.is_valid():
             invitee = inviteeSerializer.save()
@@ -124,8 +153,7 @@ def removeInvite(request, cid, uid):
     isAuthenticated = jwtAuth.authenticate(request)
     if isAuthenticated:
         requestUser = isAuthenticated[0]
-        calendar = Calendar.objects.filter(
-            id=cid, owner=requestUser).first()
+        calendar = getOneCalendarByRequestUser(requestUser, cid)
         if not calendar:
             return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
         invitee = calendar.participants.filter(invitee=uid).first()
@@ -143,8 +171,7 @@ def inviteUserStatus(request, cid, uid):
     isAuthenticated = jwtAuth.authenticate(request)
     if isAuthenticated:
         requestUser = isAuthenticated[0]
-        calendar = Calendar.objects.filter(
-            id=cid, owner=requestUser).first()
+        calendar = getOneCalendarByRequestUser(requestUser, cid)
         if not calendar:
             return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
         invitee = calendar.participants.filter(invitee=uid).first()
@@ -160,8 +187,7 @@ def getParticipants(request, cid):
     isAuthenticated = jwtAuth.authenticate(request)
     if isAuthenticated:
         requestUser = isAuthenticated[0]
-        calendar = Calendar.objects.filter(
-            id=cid, owner=requestUser).first()
+        calendar = getOneCalendarByRequestUser(requestUser, cid)
         if not calendar:
             return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
         participants = []
@@ -175,12 +201,10 @@ def getParticipants(request, cid):
 
 @api_view(['GET'])
 def generateSchedule(request, cid):
-
     isAuthenticated = jwtAuth.authenticate(request)
     if isAuthenticated:
         requestUser = isAuthenticated[0]
-        calendar = Calendar.objects.filter(
-            id=cid, owner=requestUser).first()
+        calendar = getOneCalendarByRequestUser(requestUser, cid)
         if not calendar:
             return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -233,13 +257,29 @@ def getPreferences(request, cid):
     isAuthenticated = jwtAuth.authenticate(request)
     if isAuthenticated:
         requestUser = isAuthenticated[0]
-        calendar = Calendar.objects.filter(
-            id=cid, owner=requestUser).first()
+        calendar = getOneCalendarByRequestUser(requestUser, cid)
         if not calendar:
             calendar = Calendar.objects.filter(
                 id=cid, participants=requestUser).first()
         if calendar:
             serializer = PreferenceSerializer(calendar.preferences, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({'error': 'Calendar does not exist'}, status=status.HTTP_404_NOT_FOUND)
+    return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['GET'])
+def getPreferencesByUID(request, cid, uid):
+    isAuthenticated = jwtAuth.authenticate(request)
+    if isAuthenticated:
+        requestUser = isAuthenticated[0]
+        user = User.objects.filter(id=uid).first()
+        if not user:
+            return Response({'error': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        calendar = getOneCalendarByRequestUser(user, cid)
+        preferences = calendar.preferences.filter(user=user)
+        if calendar:
+            serializer = PreferenceSerializer(preferences, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response({'error': 'Calendar does not exist'}, status=status.HTTP_404_NOT_FOUND)
     return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
@@ -251,9 +291,10 @@ def createPreference(request, cid):
     isAuthenticated = jwtAuth.authenticate(request)
     if not isAuthenticated:
         return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
-    current_user = isAuthenticated[0]
-    request.data['user'] = current_user.id
-    calendar = get_object_or_404(Calendar, id=cid, owner=current_user)
+    requestUser = isAuthenticated[0]
+    request.data['user'] = requestUser.id
+    request.data['calendar_id'] = cid
+    calendar = getOneCalendarByRequestUser(requestUser, cid)
     if not calendar:
         return Response({'error': 'Calendar does not exist'}, status=status.HTTP_404_NOT_FOUND)
     request.data['calendar'] = calendar.id
@@ -274,8 +315,10 @@ def editPreference(request, cid, pid):
     current_user = isAuthenticated[0]
     request.data['user'] = current_user.id
     try:
-        current_user = isAuthenticated[0]
-        calendar = Calendar.objects.get(id=cid, owner=current_user)
+        requestUser = isAuthenticated[0]
+        calendar = getOneCalendarByRequestUser(requestUser, cid)
+        if not calendar:
+            return Response({'error': 'Calendar does not exist'}, status=status.HTTP_404_NOT_FOUND)
         preference = calendar.preferences.get(id=pid)
     except Calendar.DoesNotExist:
         raise Http404("Calendar does not exist")
