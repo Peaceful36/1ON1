@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     # Calendar Endpoint
-    path('calendars/all/', view=views.getCalendars, name='getCalendars'), # get the participants 
+    path('calendars/all/', view=views.getCalendars, name='getCalendars'),
     path('calendars/<int:cid>/', view=views.getOneCalendar, name='getOneCalendar'),
     path('calendars/create/', view=views.createCalendar, name='createCalendar'),
     path('calendars/<int:cid>/edit/',

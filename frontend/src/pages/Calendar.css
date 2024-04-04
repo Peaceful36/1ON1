@@ -90,18 +90,14 @@
 
 .rbc-agenda-table tr{
     display: flex;
-    display: flex;
-    border: none;
-    padding: 0px;
-
 }
 
 .rbc-agenda-content td {
     width: 33.33%;
     display: flex;
     justify-content: center;
-    align-items: center;    /* background: rgb(156 163 175); */
-    background: royalblue;
+    /* align-items: center;  */
+    background: rgb(156 163 175);
     color: white;
     border: none;
     padding: 0px;
