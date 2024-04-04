@@ -101,6 +101,13 @@ def inviteUser(request, cid):
             id=cid, owner=requestUser).first()
         if not calendar:
             return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
+
+        inviteeExists = calendar.participants.filter(
+            invitee=request.data.get("invitee", None)).first()
+
+        if inviteeExists:
+            return Response(inviteeSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         request.data["inviter"] = requestUser.id
         inviteeSerializer = InviteeSerializer(data=request.data)
         if inviteeSerializer.is_valid():
@@ -109,6 +116,25 @@ def inviteUser(request, cid):
             calendarSerializer = CalendarSerializer(calendar)
             return Response(calendarSerializer.data, status=status.HTTP_201_CREATED)
         return Response(inviteeSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['DELETE'])
+def removeInvite(request, cid, uid):
+    isAuthenticated = jwtAuth.authenticate(request)
+    if isAuthenticated:
+        requestUser = isAuthenticated[0]
+        calendar = Calendar.objects.filter(
+            id=cid, owner=requestUser).first()
+        if not calendar:
+            return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
+        invitee = calendar.participants.filter(invitee=uid).first()
+        if not invitee:
+            invitee = calendar.participants.filter(id=uid).first()
+            if not invitee:
+                return Response({"error": "Invitee Not Found"}, status=status.HTTP_404_NOT_FOUND)
+        invitee.delete()
+        return Response({}, status=status.HTTP_200_OK)
     return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
 
 

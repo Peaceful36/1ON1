@@ -6,18 +6,19 @@ import dayjs from "dayjs";
 import "./Calendar.css";
 import { useAuth } from "../helper/AuthProvider";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-
 
 const localizer = dayjsLocalizer(dayjs);
 
 function Calendar_view() {
   const [preferences, setPreferences] = useState([]);
- 
+
   const { id } = useParams(); // Get the 'id' parameter from the URL
   const { token } = useAuth(); // Get the authentication token using the useAuth hook
 
+  const navigate = useNavigate();
   const handleAutoGen = () => {
     fetch(`http://127.0.0.1:8000/calendars/${id}/generate`, {
       headers: {
@@ -25,18 +26,18 @@ function Calendar_view() {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Failed to fetch events');
-      }
-      return response.json();
-    })
-    .then((data) => {
-      setPreferences(data); // Update state variable with the fetched data
-    })
-    .catch((error) => {
-      console.error('Error fetching events:', error);
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch events");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setPreferences(data); // Update state variable with the fetched data
+      })
+      .catch((error) => {
+        console.error("Error fetching events:", error);
+      });
   };
   const [participants, setParticipants] = useState([]);
   const getParticipants = () => {
@@ -46,69 +47,75 @@ function Calendar_view() {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Failed to fetch participants');
-      }
-      return response.json();
-    })
-    .then((data) => {
-      setParticipants(data); // Update state variable with the fetched data
-    }
-    )
-    .catch((error) => {
-      console.error('Error fetching participants:', error);
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch participants");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setParticipants(data); // Update state variable with the fetched data
+      })
+      .catch((error) => {
+        console.error("Error fetching participants:", error);
+      });
   };
   //console.log(preferences.result[0]);
-  
+
   useEffect(() => {
     getParticipants(); // Fetch participants on component mount
-  } , []);
- 
+  }, []);
+
   useEffect(() => {
     handleAutoGen(); // Fetch events on component mount
-  }, []); 
+  }, []);
   const preferenceList = {};
   const preferencesData = {
     start: new Date(),
     end: new Date(),
-    title: ""
+    title: "",
   };
 
   if (preferences.result !== undefined) {
-    preferencesData['start'] = new Date(preferences.result[0].slice(0, 10) + 'T' + preferences.result[0].slice(11, 19));
-    preferencesData['end'] = new Date(preferences.result[0].slice(0, 10) + 'T' + preferences.result[0].slice(20, 28));
-    if(preferences.result[1].priority === 3){
-      preferencesData['title'] = "High Priority";
-    }
-    else if(preferences.result[1].priority === 2){
-      preferencesData['title'] = "Medium Priority";
-    }
-    else{
-      preferencesData['title'] = "Low Priority";
+    preferencesData["start"] = new Date(
+      preferences.result[0].slice(0, 10) +
+        "T" +
+        preferences.result[0].slice(11, 19)
+    );
+    preferencesData["end"] = new Date(
+      preferences.result[0].slice(0, 10) +
+        "T" +
+        preferences.result[0].slice(20, 28)
+    );
+    if (preferences.result[1].priority === 3) {
+      preferencesData["title"] = "High Priority";
+    } else if (preferences.result[1].priority === 2) {
+      preferencesData["title"] = "Medium Priority";
+    } else {
+      preferencesData["title"] = "Low Priority";
     }
     // console.log(preferences[0]);
   }
   const notifyAll = () => {
     fetch(`http://127.0.0.1:8000/email-contacts`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       then: (response) => {
         if (!response.ok) {
-          throw new Error('Failed to notify participants');
+          throw new Error("Failed to notify participants");
         }
         return response.json();
       },
       body: JSON.stringify({ calendar_id: id }),
-    })};
+    });
+  };
 
-    useEffect(() => {
-      notifyAll();
-    }, []);
+  useEffect(() => {
+    notifyAll();
+  }, []);
   return (
     <div>
       <Navbar />
@@ -122,18 +129,18 @@ function Calendar_view() {
           className="text-white font-staatliches mt-11 ml-4 md:h-full border-none list-square text-left"
         >
           <h1 className="text-5xl ml-0 sm:text-center">PEOPLE</h1>
-          
-            <ul className="custom-list text-2xl mt-3 ml-8">
-              {participants.map((participant) => (
-                <div key={participant.id} className="ml-5 mb-5">
-                  {participant.username}
-                </div>
-              ))}
-            </ul>
-      
+
+          <ul className="custom-list text-2xl mt-3 ml-8">
+            {participants.map((participant) => (
+              <div key={participant.id} className="ml-5 mb-5">
+                {participant.username}
+              </div>
+            ))}
+          </ul>
+
           <button
             className="login-button w-48 h-12 bg-white rounded-full transform rotate-0.12 text-black font-staatliches font-normal text-3xl leading-12 mt-2"
-            onClick={() => (window.location = "moreDetails.html")}
+            onClick={() => navigate(`/calendar_view/${id}/viewDetails`)}
           >
             MORE DETAILS
           </button>
@@ -146,7 +153,6 @@ function Calendar_view() {
             <Calendar
               localizer={localizer}
               events={[preferencesData]}
-              
               startAccessor="start"
               endAccessor="end"
               style={{ height: 500 }}
@@ -159,12 +165,12 @@ function Calendar_view() {
             AUTO-GENERATE
           </button>
           <button
-          onClick={notifyAll}
-          className="login-button w-48 h-12 bg-white mb-1 rounded-full transform rotate-0.12 text-black font-staatliches font-normal text-3xl leading-12 mt-2 w-75px h-40px text-right sm:w-192px h-48px absolute">
+            onClick={notifyAll}
+            className="login-button w-48 h-12 bg-white mb-1 rounded-full transform rotate-0.12 text-black font-staatliches font-normal text-3xl leading-12 mt-2 w-75px h-40px text-right sm:w-192px h-48px absolute"
+          >
             NOTIFY ALL
-            </button>
+          </button>
         </div>
-        
       </div>
     </div>
   );
