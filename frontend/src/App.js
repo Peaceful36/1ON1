@@ -11,7 +11,10 @@ import EditContact from "./pages/EditContact";
 import AuthProvider from "./helper/AuthProvider";
 import ProtectedRoute from "./helper/ProtectedRoute";
 import Calendar_view from "./pages/Calendar_view";
+import NewCalendarForm from "./pages/NewCalendar";
+import EditCalendar from "./pages/EditCalendar";
 import ViewDetails from "./pages/ViewDetails";
+
 
 function App(children) {
   return (
@@ -23,6 +26,8 @@ function App(children) {
           <Route path="/register" element={<Register />} />
           <Route element={<ProtectedRoute></ProtectedRoute>}>
             <Route path="/calendar" element={<Calendars />} />
+            <Route path="/addcalendar" element={<NewCalendarForm />}/>
+            <Route path="/editcalendar" element={<EditCalendar />}/>
             <Route path="/contact" element={<Contact />} />
             <Route path="/editcontact" element={<EditContact />} />
             <Route path="/addcontact" element={<AddContact />} />

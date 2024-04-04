@@ -8,7 +8,7 @@ class CalendarSerializer(ModelSerializer):
     class Meta:
         model = Calendar
         fields = ['id', 'owner', 'title', 'description',
-                  'start_date', 'end_date', 'participants', 'preferences', ]
+                  'start_date', 'end_date', 'participants', 'preferences' ]
 
 
 class PreferenceSerializer(ModelSerializer):

@@ -60,11 +60,11 @@ function AddContact() {
               <form id="form" onSubmit={handleSubmit}>
                 <div className="mb-6">
                   <label htmlFor="name" className="block mb-2 text-3xl text-black font-staatliches">Username</label>
-                  <input type="text" name="user" id="user" placeholder="Ohda Jack" value={formData.user} onChange={handleChange} required className="w-full px-1 py-2 ml-1 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300" />
+                  <input type="text" name="user" id="user" placeholder="Type Username" value={formData.user} onChange={handleChange} required className="w-full px-1 py-2 ml-1 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300" />
                 </div>
                 <div className="mb-6">
                   <label htmlFor="email" className="block mb-2 text-3xl text-black font-staatliches">Email Address</label>
-                  <input type="email" name="email" id="email" placeholder="ohda@gmail.com" value={formData.email} onChange={handleChange} required className="w-full px-3 py-2 ml-1 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300" />
+                  <input type="email" name="email" id="email" placeholder="Type Email" value={formData.email} onChange={handleChange} required className="w-full px-3 py-2 ml-1 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300" />
                 </div>
                 <div className="mb-6">
                   <button type="submit" className="w-full px-3 py-4 text-2xl font-staatliches text-white bg-black rounded-md hover:bg-red-600 focus:outline-none">ADD CONTACT</button>
@@ -80,3 +80,4 @@ function AddContact() {
 }
 
 export default AddContact;
+

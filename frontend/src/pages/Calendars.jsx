@@ -1,14 +1,141 @@
 
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from './Navbar';
+import { Link } from 'react-router-dom'
+import { useAuth } from "../helper/AuthProvider";
+import { useParams } from "react-router-dom";
 
 
 function Calendars() {
+  const [calendar, setCalendars] = useState([]);
+  const [error, setError] = useState(null);
+  const { id } = useParams();
+  const { token } = useAuth();
+
+  const fetchCalendars = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/calendars/all/', {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch contacts');
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setCalendars(data);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchCalendars();
+  }, []);
+
+  const handleDelete = async (calendar_id) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/calendars/${calendar_id}/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete calendar');
+      }
+
+      // Update contacts state after deletion
+      const updatedContacts = calendar.filter(calendar => calendar.id !== calendar_id);
+      setCalendars(updatedContacts);
+      fetchCalendars();
+    } catch (error) {
+      console.error('Error deleting calendar:', error.message);
+    }
+  };
+
+
 
   return (
-    <div >
-      
+    <>
+    <Navbar />
+    <h1 className="text-white text-7xl font-staatliches text-center my-5">Calendars</h1>
+
+    {/* component */}
+    <div className='flex items-center justify-center my-10'>
+        <div className="flex w-full pl-5 pr-2 md:px-0 md:w-1/3 md:mx-10 rounded-3xl">
+            <input className="w-full h-12 rounded-3xl px-4 py-1 text-gray-400 outline-none focus:outline-none" type="search" name="search" placeholder="Search..." />
+        </div>
+        <Link to="/addcalendar">
+            <div className="md:hidden bg-red-500 text-black font-bold w-14 h-12 rounded-xl flex items-center justify-center mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+            </div>
+        </Link>
     </div>
+
+    {/* Calendar Cards */}
+    <div className="relative flex flex-col justify-center md:py-6 mb-4">
+        <div className="flex flex-col items-center mx-auto max-w-screen-lg">
+            <div className="grid w-full gap-10 grid-cols-1 md:grid-cols-3 px-5 md:px-0">
+                {/* New Calendar Card Component */}
+                <Link to="/addcalendar" className="hidden hover:bg-gray-500 cursor-pointer w-full rounded-lg shadow-md md:flex flex-col transition-all overflow-hidden hover:shadow-2xl border-dotted border-2 border-gray-300">
+                    <div className="my-auto p-6 flex flex-col items-center justify-center">
+                        <div className="my-auto mx-auto p-6 flex items-center justify-center">
+                            {/* Plus icon */}
+                            <div className="bg-white text-black w-12 h-12 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                </svg>
+                            </div>
+                            <span className="ml-2 text-white font-staatliches text-lg">New Calendar</span>
+                        </div>
+                    </div>
+                </Link>
+
+                {calendar.map((cal, index) => (
+                    <div key={index} className="bg-white w-full rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl">
+                        <div className="p-6">
+                            <div className="pb-2 mb-4 border-b border-stone-200 text-sm font-medium flex justify-between font-staatliches">
+                                <span className="flex items-center gap-1 custom-blue">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                    {cal.start_date}
+                                </span>
+                            </div>
+                            <h3 className="mb-4 font-semibold text-2xl font-staatliches"><Link to={`/calendar_view/${cal.id}`} className="custom-hover custom-blue font-staatliches hover:text-[#F44336]">{cal.title}</Link></h3>
+                            <p className="text-sm mb-0 font-staatliches">
+                                {cal.description}
+                            </p>
+                          <div className='flex'>
+                          <Link
+                            to="/editcalendar"
+                            state={{title: cal.title, description: cal.description, id: cal.id}}
+                            className="text-md mb-0 text-red-400 font-staatliches hover:underline"
+                          >
+                            EDIT
+                            </Link>
+                            <p className="text-md mb-0 ml-3 text-red-400 font-staatliches hover:underline" onClick={() => handleDelete(cal.id)}>
+                                DELETE
+                            </p>
+                          </div>  
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</>
+
   )
 }
 
