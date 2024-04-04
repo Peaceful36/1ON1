@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Staatliches">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    *.font-staatliches{
+            font-family: 'Staatliches';
+        }
+      a.font-staatliches:hover{
+          color: #F44336;
+      }
+  </style>
+        <script>
+            function myFunction() {
+            var x = document.getElementById("myLinks");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+            }
+        </script>
+    <title>Log In</title>
+</head>
+<body class="bg-black">
+    <header class="bg-black text-white py-4">
+        <!-- Normal Nav -->
+        <div class="hidden md:flex">
+            <div>
+                <h1 class="text-5xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="flex space-x-5 mr-[20px] justify-end w-full">
+                <!-- Left-centered links -->
+                <a href="index.html" class="text-3xl font-staatliches text-center hover:text-red-500">Home</a>
+                <a href="calendars.html" class="text-3xl font-staatliches text-center hover:text-red-500">Calendars</a>
+                <a href="contact.html" class="text-3xl font-staatliches text-center hover:text-red-500">Contact</a>
+                <a href="{%url 'accounts:login' %}" class="text-3xl font-staatliches text-center hover:text-red-500">Login</a>
+                <a href="{%url 'accounts:register' %}" class="text-3xl font-staatliches text-center pr-5 hover:text-red-500">Register</a>
+
+            </div>
+        </div>
+        <!-- Mobile Nav -->
+        <div class=" flex md:hidden">
+            <div>
+                <h1 class="text-3xl ml-8 font-staatliches">1()N1</h1>
+            </div>
+            <div class="overflow-hidden text-xl text-white relative color-white ml-auto mr-3">
+                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+     <!-- Links For mobile navbar -->
+    <ul id="myLinks" class='hidden text-center'>
+        <li class='text-black py-3 text-2xl bg-white no-underline'>
+            <a href="index.html" class="text-3xl font-staatliches text-center hover:text-red-500">Home</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="calendars.html" class="text-3xl font-staatliches text-center hover:text-red-500">Calendars</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="contact.html" class="text-3xl font-staatliches text-center hover:text-red-500">Contact</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="{%url 'accounts:login' %}" class="text-3xl font-staatliches text-center hover:text-red-500">Login</a>
+        </li>
+        <li class='text-black py-3 text-2xl bg-white'>
+            <a href="{%url 'accounts:register' %}" class="text-3xl font-staatliches text-center pr-5 hover:text-red-500">Register</a>
+        </li>
+    </ul>
+
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=red&shade=600" alt="Your Company">
+            <h2 class="mt-10 text-center text-5xl font-bold leading-9 tracking-tight text-white font-staatliches">Register</h2>
+        </div>
+
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <form class="space-y-6" action="{% url 'accounts:register' %}" method="post">
+                {% csrf_token %}
+
+                <div>
+                    <label for="email" class="block text-2xl font-medium leading-6 text-white font-staatliches">Email address</label>
+                    <div class="mt-2">
+                        <input id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between">
+                        <label for="password" class="block text-2xl font-medium leading-6 text-white font-staatliches">Password</label>
+                    </div>
+                    <div class="mt-2">
+                        <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between">
+                        <label for="confirm_password" class="block text-2xl font-medium leading-6 text-white font-staatliches">Confirm Password</label>
+                    </div>
+                    <div class="mt-2">
+                        <input id="confirm_password" name="password_confirm" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" class="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
