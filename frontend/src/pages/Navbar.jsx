@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../helper/AuthProvider";
 import { FaBars } from "react-icons/fa";
 
+import Cookies from "js-cookie";
 
 function Navbar({ toggleLinks }) {
   const { user, logout } = useAuth();
@@ -73,13 +74,16 @@ function Navbar({ toggleLinks }) {
 
       {/* Mobile View */}
       <div className="md:hidden flex flex-col justify-center items-center">
-      <div className="flex">
-        <h1 className="text-5xl font-staatliches ml-[15%]  hover:text-red-900 duration-200">
+        <div className="flex">
+          <h1 className="text-5xl font-staatliches ml-[15%]  hover:text-red-900 duration-200">
             1()N1
-        </h1>
-        <button onClick={toggleDropdown} className="text-white text-xl ml-[150%]">
+          </h1>
+          <button
+            onClick={toggleDropdown}
+            className="text-white text-xl ml-[150%]"
+          >
             {showDropdown ? <FaBars /> : <FaBars />}
-        </button>
+          </button>
         </div>
 
         {showDropdown && (
