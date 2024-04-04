@@ -14,6 +14,8 @@ urlpatterns = [
          view=views.inviteUserStatus, name='inviteStatus'),
     path('calendars/<int:cid>/delete/',
          view=views.deleteCalendar, name='deleteCalendar'),
+    path('calendars/<int:cid>/participants/',
+         view=views.getParticipants, name='getParticipants'),
     path('calendars/<int:cid>/generate/',
          view=views.generateSchedule, name="autoGenerate"),
 
