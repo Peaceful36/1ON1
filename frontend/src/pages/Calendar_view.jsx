@@ -26,19 +26,21 @@ function Calendar_view() {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch events");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setPreferences(data); // Update state variable with the fetched data
-      })
-      .catch((error) => {
-        console.error("Error fetching events:", error);
-      });
+    .then((response) => {
+      if (!response.ok) {
+        alert("Cannot auto-generate preferences. Make sure at least one participant has submitted their preferences.");
+        throw new Error('Failed to fetch preferences');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      setPreferences(data); // Update state variable with the fetched data
+    })
+    .catch((error) => {
+      console.error('Error fetching preferences:', error);
+    });
   };
+
   const [participants, setParticipants] = useState([]);
   const getParticipants = () => {
     fetch(`http://127.0.0.1:8000/calendars/${id}/participants`, {
@@ -49,6 +51,7 @@ function Calendar_view() {
     })
       .then((response) => {
         if (!response.ok) {
+          
           throw new Error("Failed to fetch participants");
         }
         return response.json();
@@ -66,38 +69,36 @@ function Calendar_view() {
     getParticipants(); // Fetch participants on component mount
   }, []);
 
-  useEffect(() => {
-    handleAutoGen(); // Fetch events on component mount
-  }, []);
-  const preferenceList = {};
+  // useEffect(() => {
+  //   handleAutoGen(); // Fetch events on component mount
+  // }, []);
   const preferencesData = {
-    start: new Date(),
-    end: new Date(),
-    title: "",
+    start: null,
+    end: null,
+    title: null,
   };
 
   if (preferences.result !== undefined) {
-    preferencesData["start"] = new Date(
-      preferences.result[0].slice(0, 10) +
-        "T" +
-        preferences.result[0].slice(11, 19)
-    );
-    preferencesData["end"] = new Date(
-      preferences.result[0].slice(0, 10) +
-        "T" +
-        preferences.result[0].slice(20, 28)
-    );
-    if (preferences.result[1].priority === 3) {
-      preferencesData["title"] = "High Priority";
-    } else if (preferences.result[1].priority === 2) {
-      preferencesData["title"] = "Medium Priority";
-    } else {
-      preferencesData["title"] = "Low Priority";
+    preferencesData['start'] = new Date(
+      preferences.result[0].slice(0, 10) + 'T'
+       + preferences.result[0].slice(11, 19)
+       );
+    preferencesData['end'] = new Date(
+      preferences.result[0].slice(0, 10) + 'T'
+       + preferences.result[0].slice(20, 28)
+       );
+    if(preferences.result[1].average_preference === 3){
+      preferencesData['title'] = "High Priority";
     }
-    // console.log(preferences[0]);
+    else if(preferences.result[1].average_preference === 2){
+      preferencesData['title'] = "Medium Priority";
+    }
+    else{
+      preferencesData['title'] = "Low Priority";
+    }
   }
   const notifyAll = () => {
-    fetch(`http://127.0.0.1:8000/email-contacts`, {
+    fetch(`http://127.0.0.1:8000/accounts/email-contacts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -116,11 +117,43 @@ function Calendar_view() {
   useEffect(() => {
     notifyAll();
   }, []);
+
+  const [calendar, setCalendar] = useState([]); // State variable to store the calendar data
+  const getCalendar = () => {
+    fetch(`http://127.0.0.1:8000/calendars/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch calendar data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setCalendar(data); // Update state variable with the fetched data
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching calendar data:", error);
+      });
+  };
+  useEffect(() => {
+    getCalendar(); // Fetch calendar data on component mount
+  }, []);
+  const calendarData = {
+    title: calendar.title,
+    start: calendar.start_date,
+    end: calendar.end_date,
+  };
+
   return (
     <div>
       <Navbar />
       <div className="font-staatliches text-6xl leading-8 text-white text-center">
-        My Calendar
+        {calendarData.title}
       </div>
 
       <div className="flex flex-col md:flex-row">
