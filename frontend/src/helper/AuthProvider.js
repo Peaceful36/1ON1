@@ -39,8 +39,8 @@ const AuthProvider = ({ children }) => {
         );
         const res2 = await response2.json();
         if (res2.id) {
-          setUser(JSON.stringify(res2), { expires });
-          Cookies.set("user", JSON.stringify(res2));
+          setUser(JSON.stringify(res2));
+          Cookies.set("user", JSON.stringify(res2), { expires });
         } else {
           throw new Error(res2.message);
         }

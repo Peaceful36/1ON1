@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../helper/AuthProvider";
+import Cookies from "js-cookie";
 
 function Navbar({ toggleLinks }) {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
+  const user = Cookies.get("user");
 
   return (
     <header className="text-white py-4">
