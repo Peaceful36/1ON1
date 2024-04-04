@@ -6,12 +6,16 @@ import dayjs from "dayjs";
 import "./Calendar.css";
 import { useAuth } from "../helper/AuthProvider";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const localizer = dayjsLocalizer(dayjs);
 
 function Calendar_view() {
-  const { id } = useParams();
-  const { token } = useAuth();
+  const [events, setEvents] = useState([]);
+  const { id } = useParams(); // Get the 'id' parameter from the URL
+  const { token } = useAuth(); // Get the authentication token using the useAuth hook
+
   const handleAutoGen = () => {
     fetch(`http://127.0.0.1:8000/calendars/${id}/generate`, {
       headers: {
@@ -19,10 +23,31 @@ function Calendar_view() {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .then((error) => console.log(error));
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch events');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      setEvents(data); // Update state variable with the fetched data
+    })
+    .catch((error) => {
+      console.error('Error fetching events:', error);
+    });
   };
+ 
+  useEffect(() => {
+    handleAutoGen(); // Fetch events on component mount
+  }, []); 
+
+// Parse start and end dates with time
+// const processedEvents = events[0].map(event => ({
+//   start: new Date(event.start_date),
+//   end: new Date(event.end_date),
+//   title: event.title,
+// }));
+
   return (
     <div>
       <Navbar />
@@ -56,7 +81,8 @@ function Calendar_view() {
           <div>
             <Calendar
               localizer={localizer}
-              // events={myEventsList}
+              events={events[0]}
+              
               startAccessor="start"
               endAccessor="end"
               style={{ height: 500 }}
