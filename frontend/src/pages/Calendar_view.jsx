@@ -114,10 +114,6 @@ function Calendar_view() {
     });
   };
 
-  useEffect(() => {
-    notifyAll();
-  }, []);
-
   const [calendar, setCalendar] = useState([]); // State variable to store the calendar data
   const getCalendar = () => {
     fetch(`http://127.0.0.1:8000/calendars/${id}`, {
