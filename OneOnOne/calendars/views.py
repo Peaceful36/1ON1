@@ -338,8 +338,7 @@ def preferenceViewID(request, cid, pid):
     isAuthenticated = jwtAuth.authenticate(request)
     if not isAuthenticated:
         return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
-    calendar = Calendar.objects.filter(
-        id=cid, owner=isAuthenticated[0]).first()
+    calendar = getOneCalendarByRequestUser(isAuthenticated[0], cid)
     if not calendar:
         return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -358,8 +357,7 @@ def calendarsPreferencesDate(request, cid, date):
     if not isAuthenticated:
         return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
     try:
-        calendar = Calendar.objects.get(
-            id=cid, owner=isAuthenticated[0])
+        calendar = getOneCalendarByRequestUser(isAuthenticated[0], cid)
     except Calendar.DoesNotExist:
         raise Http404("Calendar does not exist")
     preferences = calendar.preferences.filter(date=date)
@@ -373,8 +371,7 @@ def deletePreference(request, cid, pid):
     isAuthenticated = jwtAuth.authenticate(request)
     if isAuthenticated:
         requestUser = isAuthenticated[0]
-        calendar = Calendar.objects.filter(
-            id=cid, owner=requestUser).first()
+        calendar = getOneCalendarByRequestUser(requestUser, cid)
         if not calendar:
             return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
         preference = calendar.preferences.filter(id=pid, user=requestUser)

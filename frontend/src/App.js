@@ -14,6 +14,9 @@ import Calendar_view from "./pages/Calendar_view";
 import NewCalendarForm from "./pages/NewCalendar";
 import EditCalendar from "./pages/EditCalendar";
 import ViewDetails from "./pages/ViewDetails";
+import CreatePreference from "./pages/createPreference";
+import Preferences from "./pages/Preferences";
+import EditPreference from "./pages/EditPreference";
 
 
 function App(children) {
@@ -36,6 +39,9 @@ function App(children) {
               path="/calendar_view/:id/viewDetails"
               element={<ViewDetails />}
             ></Route>
+            <Route path="/create-preference/:cid" element={<CreatePreference />} />
+            <Route path="/:cid/preferences/:id" element={<Preferences />} />
+            <Route path="/:cid/preferences/:pid/edit" element={<EditPreference />} />
           </Route>
         </Routes>
       </BrowserRouter>
