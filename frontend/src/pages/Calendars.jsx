@@ -9,9 +9,10 @@ function Calendars() {
   const [calendars, setCalendars] = useState([]);
   const [owners, setOwners] = useState([]);
   const [filteredCalendars, setFilteredCalendars] = useState([]);
+  const [invitations, setInvitations] = useState([]);
   const [error, setError] = useState(null);
   const { id } = useParams();
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -65,8 +66,36 @@ function Calendars() {
     }
   };
 
+  const fetchInvites = async () => {
+    const response = await fetch(
+      `http://127.0.0.1:8000/calendars/${JSON.parse(user).id}/invitations/all/`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const result = await response.json();
+
+    if (response.ok) {
+      console.log(result);
+      setInvitations(
+        await Promise.all(
+          result.map(async (invitation) => {
+            if (invitation.status === "Not Accepted") {
+              return invitation.calendar_id;
+            }
+          })
+        )
+      );
+    }
+  };
+
   useEffect(() => {
     fetchCalendars();
+    fetchInvites();
   }, []);
 
   useEffect(() => {
@@ -184,70 +213,74 @@ function Calendars() {
                 </div>
               </div>
             </Link>
-            {currentCalendars.map((cal, index) => (
-              <div
-                key={index}
-                className="bg-white w-full rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl"
-              >
-                <div className="p-6">
-                  <div className="pb-2 mb-4 border-b border-stone-200 text-sm font-medium flex justify-between font-staatliches">
-                    <span className="flex items-center gap-1 custom-blue">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-5 h-5"
+            {currentCalendars.map((cal, index) =>
+              invitations && !invitations.includes(cal.id) ? (
+                <div
+                  key={index}
+                  className="bg-white w-full rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl"
+                >
+                  <div className="p-6">
+                    <div className="pb-2 mb-4 border-b border-stone-200 text-sm font-medium flex justify-between font-staatliches">
+                      <span className="flex items-center gap-1 custom-blue">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          className="w-5 h-5"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                          />
+                        </svg>
+                        {cal.start_date}
+                      </span>
+                      <p className="text-sm mb-0 font-staatliches overflow-clip max-w-30">
+                        {owners[index] && owners[index].length > 50
+                          ? `${owners[index].slice(0, 50)}...`
+                          : owners[index]}
+                      </p>
+                    </div>
+                    <h3 className="mb-4 font-semibold text-2xl font-staatliches">
+                      <Link
+                        to={`/calendar_view/${cal.id}`}
+                        className="custom-hover custom-blue font-staatliches hover:text-[#F44336]"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                        />
-                      </svg>
-                      {cal.start_date}
-                    </span>
-                    <p className="text-sm mb-0 font-staatliches overflow-clip max-w-30">
-                      {owners[index] && owners[index].length > 50
-                        ? `${owners[index].slice(0, 50)}...`
-                        : owners[index]}
+                        {cal.title}
+                      </Link>
+                    </h3>
+                    <p className="text-sm mb-0 font-staatliches">
+                      {cal.description}
                     </p>
-                  </div>
-                  <h3 className="mb-4 font-semibold text-2xl font-staatliches">
-                    <Link
-                      to={`/calendar_view/${cal.id}`}
-                      className="custom-hover custom-blue font-staatliches hover:text-[#F44336]"
-                    >
-                      {cal.title}
-                    </Link>
-                  </h3>
-                  <p className="text-sm mb-0 font-staatliches">
-                    {cal.description}
-                  </p>
 
-                  <div className="flex">
-                    <Link
-                      to="/editcalendar"
-                      state={{
-                        title: cal.title,
-                        description: cal.description,
-                        id: cal.id,
-                      }}
-                      className="text-md mb-0 text-red-400 font-staatliches hover:underline"
-                    >
-                      EDIT
-                    </Link>
-                    <p
-                      className="text-md mb-0 ml-3 text-red-400 font-staatliches hover:underline"
-                      onClick={() => handleDelete(cal.id)}
-                    >
-                      DELETE
-                    </p>
+                    <div className="flex">
+                      <Link
+                        to="/editcalendar"
+                        state={{
+                          title: cal.title,
+                          description: cal.description,
+                          id: cal.id,
+                        }}
+                        className="text-md mb-0 text-red-400 font-staatliches hover:underline"
+                      >
+                        EDIT
+                      </Link>
+                      <p
+                        className="text-md mb-0 ml-3 text-red-400 font-staatliches hover:underline"
+                        onClick={() => handleDelete(cal.id)}
+                      >
+                        DELETE
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ) : (
+                <></>
+              )
+            )}
           </div>
         </div>
       </div>
