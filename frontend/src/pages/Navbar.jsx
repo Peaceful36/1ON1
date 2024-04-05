@@ -46,6 +46,12 @@ function Navbar({ toggleLinks }) {
           >
             Contact
           </Link>
+          <Link
+            to="/invites"
+            className="text-3xl font-staatliches hover:text-red-600 duration-200"
+          >
+            Invites
+          </Link>
           {!user ? (
             <>
               <Link
