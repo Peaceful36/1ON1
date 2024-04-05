@@ -9,17 +9,23 @@ urlpatterns = [
     path('calendars/create/', view=views.createCalendar, name='createCalendar'),
     path('calendars/<int:cid>/edit/',
          view=views.editCalendar, name='editCalendar'),
-    path('calendars/<int:cid>/invite/', view=views.inviteUser, name='inviteUser'),
-    path('calendars/<int:cid>/invite/<int:uid>/delete/',
-         view=views.removeInvite, name='removeInvite'),
-    path('calendars/<int:cid>/invite/<int:uid>/status/',
-         view=views.inviteUserStatus, name='inviteStatus'),
     path('calendars/<int:cid>/delete/',
          view=views.deleteCalendar, name='deleteCalendar'),
     path('calendars/<int:cid>/participants/',
          view=views.getParticipants, name='getParticipants'),
     path('calendars/<int:cid>/generate/',
          view=views.generateSchedule, name="autoGenerate"),
+
+    # Invite stuff
+    path('calendars/<int:cid>/invite/', view=views.inviteUser, name='inviteUser'),
+    path('calendars/<int:cid>/invite/<int:uid>/delete/',
+         view=views.removeInvite, name='removeInvite'),
+    path('calendars/<int:cid>/invite/<int:uid>/status/',
+         view=views.inviteUserStatus, name='inviteStatus'),
+    path('calendars/<int:cid>/invite/<int:uid>/status/update/',
+         view=views.inviteUserStatusUpdate, name='inviteStatusUpdate'),
+    path('calendars/<int:uid>/invitations/all/',
+         view=views.allInvitations, name='allInvitations'),
 
     # Preference Endpoints
     path('calendars/<int:cid>/preferences/all/',  # todo
