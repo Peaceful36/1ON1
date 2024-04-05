@@ -6,10 +6,8 @@ import { useAuth } from "../helper/AuthProvider";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
-import { useTheme } from "@mui/material/styles";
 
 export default function ViewDetails() {
-  const theme = useTheme();
   const { id } = useParams();
   const { token } = useAuth();
   const [participants, setParticipants] = useState(null);
@@ -109,7 +107,6 @@ export default function ViewDetails() {
       <div className="flex items-center justify-center w-1/3 h-full ml-auto mr-auto">
         <Autocomplete
           disablePortal
-          id="combo-box-demo"
           value={searchValue}
           onChange={(event, newValue) => {
             console.log(newValue);
@@ -120,23 +117,37 @@ export default function ViewDetails() {
           sx={{
             width: "40rem",
             fontSize: "text-sm",
+            border: "white",
             borderRadius: "full",
-            border: "black",
-            background: theme.palette.background.default,
+            "& .MuiInputBase-root": {
+              color: "white",
+              // background: "white",
+              borderRadius: "100px",
+            },
+            "& + .MuiAutocomplete-popper .MuiAutocomplete-option": {
+              borderRadius: "100px",
+              width: 1,
+            },
+            // background: "white",
+            // border: "black",
             // "& .MuiOutlinedInput-root": {
             //   borderRadius: "full", // Set border radius for the input root
             //   "&:hover .MuiOutlinedInput-notchedOutline": {
-            //     border: "none", // Remove border on hover
+            //     text: "white",
+            //     borderRadius: "full",
             //   },
             //   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            //     border: "none", // Remove border on focus
+            //     color: "white",
             //   },
             // },
           }}
           renderInput={(params) => (
             <TextField
+              // label="Search Contacts"
+              color="error"
+              focused
+              placeholder="Search Contacts"
               {...params}
-              className=" w-1 border rounded-full border-black"
             />
           )}
         />
