@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './Navbar';
 import { Link } from 'react-router-dom';
 import { useAuth } from "../helper/AuthProvider";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 function Preferences() {
   const [preferences, setPreferences] = useState([]);

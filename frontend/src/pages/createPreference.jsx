@@ -1,9 +1,9 @@
 import React, { useState , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from './Navbar';
 import { Alert, Stack } from '@mui/material';
 import { useParams } from "react-router-dom";
 import { useAuth } from "../helper/AuthProvider";
+import Navbar from '../components/Navbar';
 
 function CreatePreference() {
     const {cid} = useParams();
