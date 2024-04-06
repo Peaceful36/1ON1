@@ -7,7 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AddContact from "./pages/AddContact";
 import EditContact from "./pages/EditContact";
-
+import Invites from "./pages/Invites";
 import AuthProvider from "./helper/AuthProvider";
 import ProtectedRoute from "./helper/ProtectedRoute";
 import Calendar_view from "./pages/Calendar_view";
