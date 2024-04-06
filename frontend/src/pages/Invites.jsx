@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import { useAuth } from "../helper/AuthProvider";
 
 export default function Invites() {

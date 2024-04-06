@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { useAuth } from "../helper/AuthProvider";
 import { useParams } from "react-router-dom";

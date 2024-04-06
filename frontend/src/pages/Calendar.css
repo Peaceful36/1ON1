@@ -41,7 +41,7 @@
 }
 
 .rbc-month-view .rbc-today {
-    background-color: darkgray !important;
+    background-color: blue !important;
 }
 
 /* .rbc-time-view .rbc-time-gutter .rbc-time-column {

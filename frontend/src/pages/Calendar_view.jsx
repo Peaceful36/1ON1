@@ -1,5 +1,6 @@
 import * as React from "react";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
+import Legend from "../components/Legend";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Calendar, dayjsLocalizer } from "react-big-calendar";
 import dayjs from "dayjs";
@@ -10,9 +11,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import PropTypes from 'prop-types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Legend from "./Legend";
-
 
 
 const localizer = dayjsLocalizer(dayjs);
@@ -62,7 +60,7 @@ function Calendar_view() {
     })
     .then((response) => {
       if (!response.ok) {
-        alert("Cannot auto-generate preferences. Make sure at least one participant has submitted their preferences.");
+        alert("Cannot auto-generate preferences.");
         throw new Error('Failed to fetch preferences');
       }
       return response.json();
@@ -103,9 +101,6 @@ function Calendar_view() {
     getParticipants(); // Fetch participants on component mount
   }, []);
 
-  // useEffect(() => {
-  //   handleAutoGen(); // Fetch events on component mount
-  // }, []);
   
   const notifyAll = () => {
     fetch(`http://127.0.0.1:8000/accounts/email-contacts/`, {
@@ -118,6 +113,7 @@ function Calendar_view() {
         if (!response.ok) {
           throw new Error("Failed to notify participants");
         }
+        alert("Notified all participants");
         return response.json();
       },
       body: JSON.stringify({ "subject": "Reminder:" + calendar.title,
@@ -151,15 +147,6 @@ function Calendar_view() {
     getCalendar(); // Fetch calendar data on component mount
   }, []);
   if (preferences.result !== undefined) {
-    // preferencesData['start'] = new Date(
-    //   preferences.result[0].slice(0, 10) + 'T'
-    //    + preferences.result[0].slice(11, 19)
-    //    );
-    // preferencesData['end'] = new Date(
-    //   preferences.result[0].slice(0, 10) + 'T'
-    //    + preferences.result[0].slice(20, 28)
-    //    );
-    // preferencesData['title'] = "Suggested Meeting Time";
     eventData.push({
       start: new Date(
         preferences.result[0].slice(0, 10) + 'T'

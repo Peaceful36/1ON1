@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom"; // Import useHistory hook
 
 export default function Register() {

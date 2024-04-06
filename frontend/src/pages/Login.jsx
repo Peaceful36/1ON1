@@ -1,4 +1,4 @@
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../helper/AuthProvider";
