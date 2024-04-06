@@ -29,9 +29,10 @@ function App(children) {
           <Route path="/register" element={<Register />} />
           <Route element={<ProtectedRoute></ProtectedRoute>}>
             <Route path="/calendar" element={<Calendars />} />
-            <Route path="/addcalendar" element={<NewCalendarForm />}/>
-            <Route path="/editcalendar" element={<EditCalendar />}/>
+            <Route path="/addcalendar" element={<NewCalendarForm />} />
+            <Route path="/editcalendar" element={<EditCalendar />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/invites" element={<Invites />} />
             <Route path="/editcontact" element={<EditContact />} />
             <Route path="/addcontact" element={<AddContact />} />
             <Route path="/calendar_view/:id" element={<Calendar_view />} />

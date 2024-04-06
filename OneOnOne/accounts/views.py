@@ -114,6 +114,17 @@ class GetUserDetailsView(APIView):
         return Response(user_serializer.data, status=status.HTTP_200_OK)
 
 
+class GetDetailsView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, uid):
+        print(request.headers)  # Print headers for debugging
+        user_serializer = UserDetailsSerializer(
+            User.objects.filter(id=uid).first())
+        return Response(user_serializer.data, status=status.HTTP_200_OK)
+
+
 class EditUserView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]

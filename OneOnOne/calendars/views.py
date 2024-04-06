@@ -182,6 +182,40 @@ def inviteUserStatus(request, cid, uid):
     return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
+@api_view(['POST'])
+def inviteUserStatusUpdate(request, cid, uid):
+    isAuthenticated = jwtAuth.authenticate(request)
+    if isAuthenticated:
+        requestUser = isAuthenticated[0]
+        calendar = getOneCalendarByRequestUser(
+            User.objects.filter(id=uid).first(), cid)
+        if not calendar:
+            return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
+        invitee = calendar.participants.filter(invitee=uid).first()
+        if not invitee:
+            return Response({"error": "Invitee Not Found"}, status=status.HTTP_404_NOT_FOUND)
+        inviteeSerializer = InviteeSerializer(
+            invitee, data=request.data, partial=True)
+        if inviteeSerializer.is_valid():
+            inviteeSerializer.save()
+            return Response(inviteeSerializer.data, status=status.HTTP_200_OK)
+        return Response(inviteeSerializer.data, status=status.HTTP_400_BAD_REQUEST)
+    return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['GET'])
+def allInvitations(request, uid):
+    isAuthenticated = jwtAuth.authenticate(request)
+    if isAuthenticated:
+        requestUser = isAuthenticated[0]
+        invitee = Invitee.objects.filter(invitee=uid)
+        if not invitee:
+            return Response({"error": "Invitations Not Found"}, status=status.HTTP_404_NOT_FOUND)
+        inviteeSerializer = InviteeSerializer(invitee, many=True)
+        return Response(inviteeSerializer.data, status=status.HTTP_200_OK)
+    return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
 @api_view(['GET'])
 def getParticipants(request, cid):
     isAuthenticated = jwtAuth.authenticate(request)
