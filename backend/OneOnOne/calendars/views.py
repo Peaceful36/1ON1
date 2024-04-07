@@ -311,10 +311,11 @@ def getPreferencesByUID(request, cid, uid):
         if not user:
             return Response({'error': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
         calendar = getOneCalendarByRequestUser(user, cid)
-        preferences = calendar.preferences.filter(user=user)
         if calendar:
-            serializer = PreferenceSerializer(preferences, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            preferences = calendar.preferences.filter(user=user)
+            if preferences:
+                serializer = PreferenceSerializer(preferences, many=True)
+                return Response(serializer.data, status=status.HTTP_200_OK)
         return Response({'error': 'Calendar does not exist'}, status=status.HTTP_404_NOT_FOUND)
     return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
 
