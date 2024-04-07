@@ -218,8 +218,7 @@ function Calendars() {
               </div>
             </Link>
             {currentCalendars.map((cal, index) =>
-              // invitations && !invitations.includes(cal.id) ? (
-              true === true ? (
+              invitations && !invitations.includes(cal.id) ? (
                 <div
                   key={index}
                   className="bg-white w-full rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl"

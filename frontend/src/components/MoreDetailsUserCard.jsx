@@ -4,7 +4,7 @@ import { Menu } from "@mui/base/Menu";
 import { MenuButton } from "@mui/base/MenuButton";
 import { MenuItem } from "@mui/base/MenuItem";
 import { useAuth } from "../helper/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 export default function MoreDetailsUserCard(props) {
   const { token } = useAuth();
@@ -25,6 +25,9 @@ export default function MoreDetailsUserCard(props) {
       if (response.ok) {
         const result = await response.json();
         setStatus(result.status);
+      } else if (response.stats === 404) {
+        const nav = Navigate();
+        nav("/not_found");
       }
     };
     getStatus();

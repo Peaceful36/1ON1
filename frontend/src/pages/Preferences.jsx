@@ -35,6 +35,10 @@ function Preferences() {
           },
         }
       );
+      if (response.status === 404) {
+        // const nav = Navigate();
+        navigate("/not_found");
+      }
       if (!response.ok) {
         throw new Error("Failed to fetch preferences");
       }
