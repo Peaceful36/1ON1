@@ -214,6 +214,7 @@ useEffect(() => {
                 (event) => {
                   let newStyle = {
                     color: "black",
+                    backgroundColor: "lightgray"
                   };
                   if (event.title === "High Priority") {
                     newStyle.backgroundColor = "red";
