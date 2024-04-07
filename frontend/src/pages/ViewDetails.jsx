@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 
 export default function ViewDetails() {
   const { id } = useParams();
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const [participants, setParticipants] = useState(null);
   const [contacts, setContacts] = useState([]);
   const [searchValue, setSearchValue] = useState(null);
@@ -65,6 +65,7 @@ export default function ViewDetails() {
 
       if (participantsResponse.ok) {
         const participantsData = await participantsResponse.json();
+        // participantsData.push(JSON.parse(user));
         setParticipants(participantsData);
 
         const contactsResponse = await fetch(
@@ -160,12 +161,23 @@ export default function ViewDetails() {
         )}
       </div>
 
+      <div className="container w-full max-w-sm mx-auto mt-16 bg-white border border-gray-200 rounded-lg shadow font-staatliches">
+        <MoreDetailsUserCard
+          cid={id}
+          participant={JSON.parse(user)}
+          // status={status ? status[index].status : "Null"}
+          isUser={true}
+          removeFromCalendar={removeFromCalendar}
+        />
+      </div>
+
       {participants &&
         participants.map((user, index) => (
           <div className="container w-full max-w-sm mx-auto mt-16 bg-white border border-gray-200 rounded-lg shadow font-staatliches">
             <MoreDetailsUserCard
               cid={id}
               participant={user}
+              isUser={false}
               // status={status ? status[index].status : "Null"}
               removeFromCalendar={removeFromCalendar}
             />
