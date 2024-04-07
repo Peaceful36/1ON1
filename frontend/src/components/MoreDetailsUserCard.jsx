@@ -4,10 +4,12 @@ import { Menu } from "@mui/base/Menu";
 import { MenuButton } from "@mui/base/MenuButton";
 import { MenuItem } from "@mui/base/MenuItem";
 import { useAuth } from "../helper/AuthProvider";
+import { Link } from "react-router-dom";
 
 export default function MoreDetailsUserCard(props) {
   const { token } = useAuth();
   const [status, setStatus] = useState(null);
+  console.log(props.participant);
   useEffect(() => {
     const getStatus = async () => {
       const response = await fetch(
@@ -46,12 +48,21 @@ export default function MoreDetailsUserCard(props) {
             {/* <MenuItem className="px-2 py-2 hover:bg-gray-100 w-full cursor-pointer">
               Edit
             </MenuItem> */}
-            <MenuItem
-              onClick={() => props.removeFromCalendar(props.participant.id)}
-              className="px-2 py-2 hover:bg-gray-100 w-full text-red-500 cursor-pointer"
-            >
-              Delete
-            </MenuItem>
+            {props.isUser ? (
+              <MenuItem
+                onClick={() => props.removeFromCalendar(props.participant.id)}
+                className="px-2 py-2 hover:bg-gray-100 w-full text-green-500 cursor-pointer"
+              >
+                <Link to={`/create-preference/${props.cid}`}>Create</Link>
+              </MenuItem>
+            ) : (
+              <MenuItem
+                onClick={() => props.removeFromCalendar(props.participant.id)}
+                className="px-2 py-2 hover:bg-gray-100 w-full text-red-500 cursor-pointer"
+              >
+                Delete
+              </MenuItem>
+            )}
           </Menu>
         </Dropdown>
       </div>
@@ -65,13 +76,20 @@ export default function MoreDetailsUserCard(props) {
         </span>
 
         <div className="flex mt-4 md:mt-6 mb-2">
-          <a className="text inline-flex items-center px-4 py-2 text-xl font-medium text-center text-white bg-black rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-black">
+          <Link
+            to={`/${props.cid}/preferences/${props.participant.id}`}
+            className="text inline-flex items-center px-4 py-2 text-xl font-medium text-center text-white bg-black rounded-lg hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-black"
+          >
             Preferences
-          </a>
+          </Link>
         </div>
-        <span className="absolute bottom-0 left-0 text text-md font-bold text-gray-500 ml-2 mb-2">
-          Status: <span className="text-red-500 font-medium">{status}</span>
-        </span>
+        {props.isUser ? (
+          <></>
+        ) : (
+          <span className="absolute bottom-0 left-0 text text-md font-bold text-gray-500 ml-2 mb-2">
+            Status: <span className="text-red-500 font-medium">{status}</span>
+          </span>
+        )}
       </div>
     </div>
   );

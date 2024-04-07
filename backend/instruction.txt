@@ -1,1 +1,0 @@
-yo add the back end stuff here, just the django related stuff

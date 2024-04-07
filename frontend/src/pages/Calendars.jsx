@@ -52,6 +52,7 @@ function Calendars() {
 
       const data = await response.json();
       setCalendars(data);
+      console.log(data);
       setOwners(
         await Promise.all(
           data.map(async (calendar) => {
@@ -80,13 +81,16 @@ function Calendars() {
     const result = await response.json();
 
     if (response.ok) {
-      console.log(result);
       setInvitations(
         await Promise.all(
           result.map(async (invitation) => {
-            if (invitation.status === "Not Accepted") {
+            if (
+              invitation.invitee === JSON.parse(user).id &&
+              invitation.status === "Not Accepted"
+            ) {
               return invitation.calendar_id;
             }
+            return null;
           })
         )
       );
@@ -214,7 +218,8 @@ function Calendars() {
               </div>
             </Link>
             {currentCalendars.map((cal, index) =>
-              invitations && !invitations.includes(cal.id) ? (
+              // invitations && !invitations.includes(cal.id) ? (
+              true === true ? (
                 <div
                   key={index}
                   className="bg-white w-full rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl"
