@@ -183,7 +183,7 @@ useEffect(() => {
           <div className="text-3xl ml-0 sm:text-center text-5xl">PEOPLE</div>
 
           <ul className="custom-list text-2xl mt-3 ml-8">
-            {participants.map((participant) => (
+            {participants.slice(0, 8).map((participant) => (
               <div key={participant.id} className="sm:ml-5 mb-5">
                 {participant.username}
               </div>
@@ -214,6 +214,7 @@ useEffect(() => {
                 (event) => {
                   let newStyle = {
                     color: "black",
+                    backgroundColor: "lightgray"
                   };
                   if (event.title === "High Priority") {
                     newStyle.backgroundColor = "red";
