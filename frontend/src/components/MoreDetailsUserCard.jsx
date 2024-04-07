@@ -21,7 +21,9 @@ export default function MoreDetailsUserCard(props) {
           },
         }
       );
-
+      if (response.status===404){
+        setStatus(false)
+      }
       if (response.ok) {
         const result = await response.json();
         setStatus(result.status);
@@ -53,9 +55,8 @@ export default function MoreDetailsUserCard(props) {
                 onClick={() => props.removeFromCalendar(props.participant.id)}
                 className="px-2 py-2 hover:bg-gray-100 w-full text-green-500 cursor-pointer"
               >
-                <Link to={`/create-preference/${props.cid}`}>Create</Link>
               </MenuItem>
-            ) : (
+            ) :  status && (
               <MenuItem
                 onClick={() => props.removeFromCalendar(props.participant.id)}
                 className="px-2 py-2 hover:bg-gray-100 w-full text-red-500 cursor-pointer"
@@ -83,13 +84,11 @@ export default function MoreDetailsUserCard(props) {
             Preferences
           </Link>
         </div>
-        {props.isUser ? (
-          <></>
-        ) : (
+        { status &&
           <span className="absolute bottom-0 left-0 text text-md font-bold text-gray-500 ml-2 mb-2">
             Status: <span className="text-red-500 font-medium">{status}</span>
           </span>
-        )}
+        }
       </div>
     </div>
   );

@@ -225,6 +225,7 @@ def getParticipants(request, cid):
         if not calendar:
             return Response({"error": "Calendar Not Found"}, status=status.HTTP_404_NOT_FOUND)
         participants = []
+        participants.append(calendar.owner.id)
         for participant in calendar.participants.all():
             participants.append(participant.invitee.id)
         users_queryset = User.objects.filter(pk__in=participants)

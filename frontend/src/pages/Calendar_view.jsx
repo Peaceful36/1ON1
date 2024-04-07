@@ -218,7 +218,7 @@ useEffect(() => {
                   };
                   if (event.title === "High Priority") {
                     newStyle.backgroundColor = "red";
-                    // newStyle.color = "transparent";
+                    newStyle.color = "transparent";
                     //hide the text
                   }
                   if (event.title === "Medium Priority") {

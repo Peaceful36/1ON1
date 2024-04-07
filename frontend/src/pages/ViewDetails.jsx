@@ -64,9 +64,12 @@ export default function ViewDetails() {
       );
 
       if (participantsResponse.ok) {
-        const participantsData = await participantsResponse.json();
-        // participantsData.push(JSON.parse(user));
+        let participantsData = await participantsResponse.json();
+        participantsData = participantsData.filter((participant) => {
+          return participant.id !== JSON.parse(user).id;
+        });
         setParticipants(participantsData);
+        console.log(participants);
 
         const contactsResponse = await fetch(
           `http://127.0.0.1:8000/accounts/get-contacts/`,
@@ -118,15 +121,15 @@ export default function ViewDetails() {
           sx={{
             width: "40rem",
             fontSize: "text-sm",
-            border: "white",
+            border: "grey",
             borderRadius: "full",
             "& .MuiInputBase-root": {
-              color: "white",
-              // background: "white",
-              borderRadius: "100px",
+              color: "black",
+              background: "white",
+              borderRadius: "0px",
             },
             "& + .MuiAutocomplete-popper .MuiAutocomplete-option": {
-              borderRadius: "100px",
+              borderRadius: "0px",
               width: 1,
             },
             // background: "white",
@@ -165,6 +168,7 @@ export default function ViewDetails() {
         <MoreDetailsUserCard
           cid={id}
           participant={JSON.parse(user)}
+          
           // status={status ? status[index].status : "Null"}
           isUser={true}
           removeFromCalendar={removeFromCalendar}
@@ -175,6 +179,7 @@ export default function ViewDetails() {
         participants.map((user, index) => (
           <div className="container w-full max-w-sm mx-auto mt-16 bg-white border border-gray-200 rounded-lg shadow font-staatliches">
             <MoreDetailsUserCard
+              
               cid={id}
               participant={user}
               isUser={false}

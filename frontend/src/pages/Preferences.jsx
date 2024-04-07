@@ -10,7 +10,7 @@ function Preferences() {
   const location = useLocation();
   const preferenceState = location.state;
   const [refresh, setRefresh] = useState(1); // Initialize 'refresh' state to 1
-  const PreferencesPerPage = 2;
+  const PreferencesPerPage = 3;
   const indexofLastPreference = currentPage * PreferencesPerPage;
   const indexofFirstPreference = indexofLastPreference - PreferencesPerPage;
   const currentPreferences = preferences.slice(

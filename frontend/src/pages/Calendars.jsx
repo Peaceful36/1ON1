@@ -29,6 +29,7 @@ function Calendars() {
         },
       }
     );
+
     const result = await response.json();
 
     if (response.ok) {
@@ -53,6 +54,7 @@ function Calendars() {
       const data = await response.json();
       setCalendars(data);
       console.log(data);
+      // console.log(JSON.parse(user).id);
       setOwners(
         await Promise.all(
           data.map(async (calendar) => {
@@ -218,8 +220,8 @@ function Calendars() {
               </div>
             </Link>
             {currentCalendars.map((cal, index) =>
-              // invitations && !invitations.includes(cal.id) ? (
-              true === true ? (
+              invitations && !invitations.includes(cal.id) ? (
+              
                 <div
                   key={index}
                   className="bg-white w-full rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl"
@@ -261,7 +263,7 @@ function Calendars() {
                       {cal.description}
                     </p>
 
-                    <div className="flex">
+                    { JSON.parse(user).id === cal.owner && <div className="flex">
                       <Link
                         to="/editcalendar"
                         state={{
@@ -279,7 +281,7 @@ function Calendars() {
                       >
                         DELETE
                       </p>
-                    </div>
+                    </div> }
                   </div>
                 </div>
               ) : (
