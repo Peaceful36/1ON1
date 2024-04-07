@@ -82,7 +82,7 @@ function Calendars() {
 
     const result = await response.json();
 
-    if (response.ok) {
+    if (response.ok && Array.isArray(result)) {
       setInvitations(
         await Promise.all(
           result.map(async (invitation) => {
@@ -221,7 +221,6 @@ function Calendars() {
             </Link>
             {currentCalendars.map((cal, index) =>
               invitations && !invitations.includes(cal.id) ? (
-              
                 <div
                   key={index}
                   className="bg-white w-full rounded-lg shadow-md flex flex-col transition-all overflow-hidden hover:shadow-2xl"
@@ -263,25 +262,27 @@ function Calendars() {
                       {cal.description}
                     </p>
 
-                    { JSON.parse(user).id === cal.owner && <div className="flex">
-                      <Link
-                        to="/editcalendar"
-                        state={{
-                          title: cal.title,
-                          description: cal.description,
-                          id: cal.id,
-                        }}
-                        className="text-md mb-0 text-red-400 font-staatliches hover:underline"
-                      >
-                        EDIT
-                      </Link>
-                      <p
-                        className="text-md mb-0 ml-3 text-red-400 font-staatliches hover:underline"
-                        onClick={() => handleDelete(cal.id)}
-                      >
-                        DELETE
-                      </p>
-                    </div> }
+                    {JSON.parse(user).id === cal.owner && (
+                      <div className="flex">
+                        <Link
+                          to="/editcalendar"
+                          state={{
+                            title: cal.title,
+                            description: cal.description,
+                            id: cal.id,
+                          }}
+                          className="text-md mb-0 text-red-400 font-staatliches hover:underline"
+                        >
+                          EDIT
+                        </Link>
+                        <p
+                          className="text-md mb-0 ml-3 text-red-400 font-staatliches hover:underline"
+                          onClick={() => handleDelete(cal.id)}
+                        >
+                          DELETE
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               ) : (
