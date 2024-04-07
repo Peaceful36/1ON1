@@ -210,7 +210,7 @@ def allInvitations(request, uid):
         requestUser = isAuthenticated[0]
         invitee = Invitee.objects.filter(invitee=uid)
         if not invitee:
-            return Response({"error": "Invitations Not Found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({}, status=status.HTTP_200_OK)
         inviteeSerializer = InviteeSerializer(invitee, many=True)
         return Response(inviteeSerializer.data, status=status.HTTP_200_OK)
     return Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
