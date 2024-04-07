@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import MoreDetailsUserCard from "../components/MoreDetailsUserCard";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../helper/AuthProvider";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 export default function ViewDetails() {
   const { id } = useParams();
   const { token, user } = useAuth();
+  const navigate = useNavigate();
   const [participants, setParticipants] = useState(null);
   const [contacts, setContacts] = useState([]);
   const [searchValue, setSearchValue] = useState(null);
@@ -62,6 +63,10 @@ export default function ViewDetails() {
           },
         }
       );
+      if (participantsResponse.status === 404) {
+        // const nav = Navigate();
+        navigate("/not_found");
+      }
 
       if (participantsResponse.ok) {
         let participantsData = await participantsResponse.json();
@@ -124,9 +129,9 @@ export default function ViewDetails() {
             border: "grey",
             borderRadius: "full",
             "& .MuiInputBase-root": {
-              color: "black",
+              // color: "white",
               background: "white",
-              borderRadius: "0px",
+              borderRadius: "100px",
             },
             "& + .MuiAutocomplete-popper .MuiAutocomplete-option": {
               borderRadius: "0px",
@@ -134,16 +139,16 @@ export default function ViewDetails() {
             },
             // background: "white",
             // border: "black",
-            // "& .MuiOutlinedInput-root": {
-            //   borderRadius: "full", // Set border radius for the input root
-            //   "&:hover .MuiOutlinedInput-notchedOutline": {
-            //     text: "white",
-            //     borderRadius: "full",
-            //   },
-            //   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            //     color: "white",
-            //   },
-            // },
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "full", // Set border radius for the input root
+              "&:hover .MuiOutlinedInput-notchedOutline": {
+                text: "black",
+                borderRadius: "full",
+              },
+              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                border: "None",
+              },
+            },
           }}
           renderInput={(params) => (
             <TextField

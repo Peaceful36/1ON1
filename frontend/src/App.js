@@ -17,7 +17,7 @@ import ViewDetails from "./pages/ViewDetails";
 import CreatePreference from "./pages/createPreference";
 import Preferences from "./pages/Preferences";
 import EditPreference from "./pages/EditPreference";
-
+import NotFound from "./pages/NotFound";
 
 function App(children) {
   return (
@@ -25,6 +25,7 @@ function App(children) {
       <BrowserRouter>
         <Routes>
           <Route index element={<HomePage />} />
+          <Route path="*" element={<NotFound />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route element={<ProtectedRoute></ProtectedRoute>}>
@@ -40,9 +41,15 @@ function App(children) {
               path="/calendar_view/:id/viewDetails"
               element={<ViewDetails />}
             ></Route>
-            <Route path="/create-preference/:cid" element={<CreatePreference />} />
+            <Route
+              path="/create-preference/:cid"
+              element={<CreatePreference />}
+            />
             <Route path="/:cid/preferences/:id" element={<Preferences />} />
-            <Route path="/:cid/preferences/:pid/edit" element={<EditPreference />} />
+            <Route
+              path="/:cid/preferences/:pid/edit"
+              element={<EditPreference />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>
